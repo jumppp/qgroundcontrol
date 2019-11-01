@@ -1,0 +1,68 @@
+[
+{
+    "name":                 "pm25",
+    "shortDescription":     "PM 2.5",
+    "type":                 "uint16",
+    "units":                "ug/cm3"
+},
+{
+    "name":                 "pm10",
+    "shortDescription":     "PM 10",
+    "type":                 "uint16",
+    "units":                "ug/cm3"
+},
+{
+    "name":                 "so2",
+    "shortDescription":     "Sulfur Dioxide",
+    "type":                 "uint32",
+    "units":                "ppb"
+},
+{
+    "name":                 "voc",
+    "shortDescription":     "Volatile Organic Compounds",
+    "type":                 "uint32",
+    "units":                "ppb"
+},
+{
+    "name":                 "no2",
+    "shortDescription":     "Nitrogen Dioxide",
+    "type":                 "uint32",
+    "units":                "ppb"
+},
+{
+    "name":                 "co",
+    "shortDescription":     "Carbon Monoxide",
+    "type":                 "uint32",
+    "units":                "ppm"
+},
+{
+    "name":                 "nh3",
+    "shortDescription":     "Ammonia",
+    "type":                 "uint32",
+    "units":                "ppm"
+},
+{
+    "name":                 "o3",
+    "shortDescription":     "Ozone",
+    "type":                 "uint32",
+    "units":                "ppb"
+},
+{
+    "name":                 "gasPressure",
+    "shortDescription":     "Air Pressure",
+    "type":                 "uint32",
+    "units":                "pa"
+},
+{
+    "name":                 "humidity",
+    "shortDescription":     "Ambient Humidity",
+    "type":                 "uint8",
+    "units":                "%rh"
+},
+{
+    "name":                 "gasTemperature",
+    "shortDescription":     "Ambient Temperature",
+    "type":                 "uint16",
+    "units":                "c"
+}
+]

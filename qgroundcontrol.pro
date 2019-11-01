@@ -406,14 +406,16 @@ HEADERS += \
     src/api/QGCSettings.h \
     src/api/QmlComponentInfo.h \
     src/comm/MavlinkMessagesTimer.h \
-    src/GPS/Drivers/src/base_station.h
+    src/GPS/Drivers/src/base_station.h \
+    src/Environment/database_env.h
 
 SOURCES += \
     src/api/QGCCorePlugin.cc \
     src/api/QGCOptions.cc \
     src/api/QGCSettings.cc \
     src/api/QmlComponentInfo.cc \
-    src/comm/MavlinkMessagesTimer.cc
+    src/comm/MavlinkMessagesTimer.cc \
+    src/Environment/database_env.cpp
 
 #
 # Unit Test specific configuration goes here (requires full debug build with all plugins)
@@ -1279,3 +1281,6 @@ contains (CONFIG, QGC_DISABLE_BUILD_SETUP) {
 #
 
 include(QGCInstaller.pri)
+
+DISTFILES += \
+    src/Vehicle/GasSensorFactGroup.json

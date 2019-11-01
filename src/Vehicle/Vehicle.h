@@ -482,7 +482,62 @@ private:
     };
 #endif
 };
+class VehicleGasSensorFactGroup : public FactGroup
+{
+    Q_OBJECT
 
+public:
+    VehicleGasSensorFactGroup(QObject* parent = nullptr);
+
+    Q_PROPERTY(Fact* pm25                           READ pm25                           CONSTANT)
+    Q_PROPERTY(Fact* pm10                           READ pm10                           CONSTANT)
+    Q_PROPERTY(Fact* so2                            READ so2                            CONSTANT)
+    Q_PROPERTY(Fact* voc                            READ voc                            CONSTANT)
+    Q_PROPERTY(Fact* no2                            READ no2                            CONSTANT)
+    Q_PROPERTY(Fact* co                             READ co                             CONSTANT)
+    Q_PROPERTY(Fact* nh3                            READ nh3                            CONSTANT)
+    Q_PROPERTY(Fact* o3                             READ o3                             CONSTANT)
+    Q_PROPERTY(Fact* gasPressure                    READ gasPressure                    CONSTANT)
+    Q_PROPERTY(Fact* humidity                       READ humidity                       CONSTANT)
+    Q_PROPERTY(Fact* gasTemperature                 READ gasTemperature                 CONSTANT)
+
+    Fact* pm25                          (void) { return &_pm25Fact; }
+    Fact* pm10                          (void) { return &_pm10Fact; }
+    Fact* so2                           (void) { return &_so2Fact; }
+    Fact* voc                           (void) { return &_vocFact; }
+    Fact* no2                           (void) { return &_no2Fact; }
+    Fact* co                            (void) { return &_coFact; }
+    Fact* nh3                           (void) { return &_nh3Fact; }
+    Fact* o3                            (void) { return &_o3Fact; }
+    Fact* gasPressure                   (void) { return &_gasPressureFact; }
+    Fact* humidity                      (void) { return &_humidityFact; }
+    Fact* gasTemperature                (void) { return &_gasTemperatureFact; }
+
+    static const char* _pm25FactName;
+    static const char* _pm10FactName;
+    static const char* _so2FactName;
+    static const char* _vocFactName;
+    static const char* _no2FactName;
+    static const char* _coFactName;
+    static const char* _nh3FactName;
+    static const char* _o3FactName;
+    static const char* _gasPressureFactName;
+    static const char* _humidityFactName;
+    static const char* _gasTemperatureFactName;
+
+private:
+    Fact _pm25Fact;
+    Fact _pm10Fact;
+    Fact _so2Fact;
+    Fact _vocFact;
+    Fact _no2Fact;
+    Fact _coFact;
+    Fact _nh3Fact;
+    Fact _o3Fact;
+    Fact _gasPressureFact;
+    Fact _humidityFact;
+    Fact _gasTemperatureFact;
+};
 
 class Vehicle : public FactGroup
 {
@@ -675,6 +730,7 @@ public:
     Q_PROPERTY(FactGroup* clock             READ clockFactGroup             CONSTANT)
     Q_PROPERTY(FactGroup* setpoint          READ setpointFactGroup          CONSTANT)
     Q_PROPERTY(FactGroup* estimatorStatus   READ estimatorStatusFactGroup   CONSTANT)
+    Q_PROPERTY(FactGroup* gasSensor         READ gasSensorFactGroup         CONSTANT)
 
     Q_PROPERTY(int      firmwareMajorVersion        READ firmwareMajorVersion       NOTIFY firmwareVersionChanged)
     Q_PROPERTY(int      firmwareMinorVersion        READ firmwareMinorVersion       NOTIFY firmwareVersionChanged)
@@ -964,6 +1020,7 @@ public:
     FactGroup* setpointFactGroup        (void) { return &_setpointFactGroup; }
     FactGroup* distanceSensorFactGroup  (void) { return &_distanceSensorFactGroup; }
     FactGroup* estimatorStatusFactGroup (void) { return &_estimatorStatusFactGroup; }
+    FactGroup* gasSensorFactGroup       (void) { return &_gasSensorFactGroup; }
 
     void setConnectionLostEnabled(bool connectionLostEnabled);
 
@@ -1255,6 +1312,7 @@ private:
     void _handleAttitudeTarget(mavlink_message_t& message);
     void _handleDistanceSensor(mavlink_message_t& message);
     void _handleEstimatorStatus(mavlink_message_t& message);
+    void _handleGasSensor(mavlink_message_t& message);
     void _handleStatusText(mavlink_message_t& message, bool longVersion);
     void _handleOrbitExecutionStatus(const mavlink_message_t& message);
     // ArduPilot dialect messages
@@ -1495,6 +1553,7 @@ private:
     VehicleSetpointFactGroup        _setpointFactGroup;
     VehicleDistanceSensorFactGroup  _distanceSensorFactGroup;
     VehicleEstimatorStatusFactGroup _estimatorStatusFactGroup;
+    VehicleGasSensorFactGroup       _gasSensorFactGroup;
 
     static const char* _rollFactName;
     static const char* _pitchFactName;
@@ -1523,7 +1582,7 @@ private:
     static const char* _clockFactGroupName;
     static const char* _distanceSensorFactGroupName;
     static const char* _estimatorStatusFactGroupName;
-
+    static const char* _gasSensorFactGroupName;
     static const int _vehicleUIUpdateRateMSecs = 100;
 
     // Settings keys
