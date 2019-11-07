@@ -770,4 +770,76 @@ QGCView {
             model: preFlightCheckModel
         }
     }
+    property bool sideWindShow: false
+    Item {
+        id: drawer
+        anchors.fill: parent
+        anchors.topMargin:  ScreenTools.toolbarHeight+10
+        anchors.bottomMargin: 10
+
+
+        function showWinShow(){
+            recloder.source = "qrc:/qml/FlightDisplayView_Drawer.qml"
+        }
+        function showNothing()
+        {
+            recloder.source = ""
+        }
+        Loader{
+            id:recloder
+            anchors.fill: sideWin
+            z:_panel.z+2
+        }
+        Rectangle {
+            id: sideWin
+            color:"#C6C2C6" //如果希望窗口弹出时为不透明则使用ff
+            x: parent.width //这是弹窗的位置坐标，此处的做法是将弹窗隐藏在主界面的左侧
+            width: parent.width*0.2 //弹窗的大小
+            height: parent.height
+            opacity: 0.8
+            radius:20
+            z:  _panel.z + 1
+            //这是弹窗弹出的效果，相比C++实现的动态效果，这里显得十分“轻巧”;看字面的意思也可以猜测出是弹窗横坐标发生变化时的行为
+            Behavior on x {
+                NumberAnimation { //一个动画的类型，具体可以查看一下qt助手，本人也是在学习中
+                    duration: 300 //动画持续时间，以ms计算
+                }
+            }
+        }
+        Rectangle { //弹窗的“按钮”，此处是因为使用了图标所以用Rectangle来实现
+                id: popUpBtn
+                color: "#00000000" //设置此”按钮“为全透明
+                width: 64
+                height: 64
+                anchors.right:  sideWin.left//此处的锚布局设置为弹窗的右侧
+                anchors.verticalCenter: sideWin.verticalCenter //锚布局为弹窗的垂直中线上
+
+                Image {
+                    anchors.centerIn: parent
+                    source: "/qmlimages/VehicleSummaryIcon.png"
+
+                    MouseArea { //此处是实现点击的关键(所以说Qml中很多时候不会直接使用Button，因为通过自己的样式选择可以轻易实现”按钮“功能)
+                        anchors.fill: parent
+
+                        onPressed: {
+                            popUpBtn.color = "#ff40598a" // 此处是为了体现”按钮“点击时的背景效果
+                        }
+
+                        onReleased: {
+                            popUpBtn.color = "#00000000" // 恢复按钮未被按下时的背景效果
+                        }
+
+                        onClicked: {
+                            sideWindShow = !sideWindShow
+                            // 三目运算符的用法，在此处改变弹窗的位置坐标，此时弹窗的行为即会触发出现动态效果
+                            sideWindShow ? sideWin.x = root.width - sideWin.width-10 : sideWin.x = root.width
+                            sideWindShow ? parent.source = "/qmlimages/VehicleSummaryIcon.png" : parent.source = "/qmlimages/VehicleSummaryIcon.png"
+                            sideWindShow ? drawer.showWinShow():drawer.showNothing()
+
+                        }
+                    }
+                }
+
+            }
+    }
 }

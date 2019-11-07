@@ -1283,4 +1283,5 @@ contains (CONFIG, QGC_DISABLE_BUILD_SETUP) {
 include(QGCInstaller.pri)
 
 DISTFILES += \
-    src/Vehicle/GasSensorFactGroup.json
+    src/Vehicle/GasSensorFactGroup.json \
+    src/Environment/FlightDisplayView_Drawer.qml

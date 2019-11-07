@@ -17,6 +17,7 @@ import QGroundControl.Palette               1.0
 import QGroundControl.MultiVehicleManager   1.0
 import QGroundControl.ScreenTools           1.0
 import QGroundControl.Controllers           1.0
+import QtQuick.Controls.Styles 1.4
 
 Rectangle {
     id:         toolBar
@@ -32,6 +33,10 @@ Rectangle {
     signal showPlanView
     signal showFlyView
     signal showAnalyzeView
+    // add view in toolbar
+    signal showEvaluationView
+    signal showReportView
+    // add view in toolbar
     signal armVehicle
     signal disarmVehicle
     signal vtolTransitionToFwdFlight
@@ -56,6 +61,16 @@ Rectangle {
     function checkAnalyzeButton() {
         analyzeButton.checked = true
     }
+
+    //add function
+    function checkEvaluationButton() {
+        evaluationButton.checked = true
+    }
+
+    function checkReportButton() {
+        reportButton.checked = true
+    }
+    //add function
 
     Component.onCompleted: {
         //-- TODO: Get this from the actual state
@@ -139,7 +154,28 @@ Rectangle {
                 visible:            !ScreenTools.isMobile && QGroundControl.corePlugin.showAdvancedUI
                 onClicked:          toolBar.showAnalyzeView()
             }
-
+            QGCToolBarButton {
+                id:                 evaluationButton
+                anchors.top:        parent.top
+                anchors.bottom:     parent.bottom
+                exclusiveGroup:     mainActionGroup
+                source:             "/qmlimages/Analyze.svg"
+                onClicked:          toolBar.showEvaluationView()
+            }
+            QGCToolBarButton {
+                id:                 reportButton
+                anchors.top:        parent.top
+                anchors.bottom:     parent.bottom
+                exclusiveGroup:     mainActionGroup
+                source:             "/qmlimages/Analyze.svg"
+                onClicked:          toolBar.showReportView()
+            }
+            QGCRadioButton{
+                id:                 id_UAVMessage
+                anchors.top:        parent.top
+                anchors.bottom:     parent.bottom
+                text: qsTr("无人机信息")
+            }
             Rectangle {
                 anchors.margins:    ScreenTools.defaultFontPixelHeight / 2
                 anchors.top:        parent.top

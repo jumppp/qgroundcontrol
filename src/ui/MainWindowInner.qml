@@ -33,12 +33,14 @@ Item {
     property var    activeVehicle:      QGroundControl.multiVehicleManager.activeVehicle
     property string formatedMessage:    activeVehicle ? activeVehicle.formatedMessage : ""
 
-    property var _viewList: [ settingsViewLoader, setupViewLoader, planViewLoader, flightView, analyzeViewLoader ]
+    property var _viewList: [ settingsViewLoader, setupViewLoader, planViewLoader, flightView, analyzeViewLoader,evaluationViewLoader,reportViewLoader ]
 
     readonly property string _settingsViewSource:   "AppSettings.qml"
     readonly property string _setupViewSource:      "SetupView.qml"
     readonly property string _planViewSource:       "PlanView.qml"
     readonly property string _analyzeViewSource:    "AnalyzeView.qml"
+    readonly property string _evaluationViewSource:    "SetupView.qml"
+    readonly property string _reportViewSource:    "SetupView.qml"
 
     onHeightChanged: {
         //-- We only deal with the available height if within the Fly or Plan view
@@ -135,7 +137,39 @@ Item {
         analyzeViewLoader.visible = true
         toolBar.checkAnalyzeButton()
     }
+    //add
+    function showEvaluationView(){
 
+        mainWindow.enableToolbar()
+        rootLoader.sourceComponent = null
+        if(currentPopUp) {
+            currentPopUp.close()
+        }
+        ScreenTools.availableHeight = 0
+        hideAllViews()
+        if (evaluationViewLoader.source  != _evaluationViewSource) {
+            evaluationViewLoader.source  = _evaluationViewSource
+        }
+
+        evaluationViewLoader.visible = true
+        toolBar.checkEvaluationButton()
+}
+    function showReportView(){
+        mainWindow.enableToolbar()
+        rootLoader.sourceComponent = null
+        if(currentPopUp) {
+            currentPopUp.close()
+        }
+        ScreenTools.availableHeight = 0
+        hideAllViews()
+        if (reportViewLoader.source  != _reportViewSource) {
+            reportViewLoader.source  = _reportViewSource
+        }
+
+        reportViewLoader.visible = true
+        toolBar.checkReportButton()
+    }
+//add
     /// Start the process of closing QGroundControl. Prompts the user are needed.
     function attemptWindowClose() {
         unsavedMissionCloseDialog.check()
@@ -284,6 +318,8 @@ Item {
         onShowPlanView:         mainWindow.showPlanView()
         onShowFlyView:          mainWindow.showFlyView()
         onShowAnalyzeView:      mainWindow.showAnalyzeView()
+        onShowEvaluationView:   mainWindow.showEvaluationView()
+        onShowReportView:       mainWindow.showReportView()
         onArmVehicle:           flightView.guidedController.confirmAction(flightView.guidedController.actionArm)
         onDisarmVehicle: {
             if (flightView.guidedController.showEmergenyStop) {
@@ -373,7 +409,23 @@ Item {
         anchors.bottom:     parent.bottom
         visible:            false
     }
+    Loader{
+        id:evaluationViewLoader
+        anchors.left:       parent.left
+        anchors.right:      parent.right
+        anchors.top:        toolBar.bottom
+        anchors.bottom:     parent.bottom
+        visible:            false
+    }
+    Loader{
+        id:reportViewLoader
+        anchors.left:       parent.left
+        anchors.right:      parent.right
+        anchors.top:        toolBar.bottom
+        anchors.bottom:     parent.bottom
+        visible:            false
 
+    }
     //-------------------------------------------------------------------------
     //-- Dismiss Pop Up Messages
     MouseArea {
