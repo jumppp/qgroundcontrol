@@ -407,7 +407,10 @@ HEADERS += \
     src/api/QmlComponentInfo.h \
     src/comm/MavlinkMessagesTimer.h \
     src/GPS/Drivers/src/base_station.h \
-    src/Environment/database_env.h
+    src/Environment/database_env.h \
+    src/Environment/test.h \
+    src/AnalyzeView/test2.h \
+    src/AnalyzeView/database_env.h
 
 SOURCES += \
     src/api/QGCCorePlugin.cc \
@@ -415,7 +418,10 @@ SOURCES += \
     src/api/QGCSettings.cc \
     src/api/QmlComponentInfo.cc \
     src/comm/MavlinkMessagesTimer.cc \
-    src/Environment/database_env.cpp
+    src/Environment/database_env.cpp \
+    src/Environment/test.cpp \
+    src/AnalyzeView/test2.cpp \
+    src/AnalyzeView/database_env.cpp
 
 #
 # Unit Test specific configuration goes here (requires full debug build with all plugins)

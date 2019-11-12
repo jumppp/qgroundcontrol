@@ -90,6 +90,8 @@
 #include "ShapeFileHelper.h"
 #include "QGCFileDownload.h"
 #include "FirmwareImage.h"
+#include "database_env.h"
+
 
 #ifndef NO_SERIAL_LINK
 #include "SerialLink.h"
@@ -449,6 +451,7 @@ void QGCApplication::_initCommon(void)
     qmlRegisterType<LogDownloadController>          (kQGCControllers,                       1, 0, "LogDownloadController");
     qmlRegisterType<SyslinkComponentController>     (kQGCControllers,                       1, 0, "SyslinkComponentController");
     qmlRegisterType<EditPositionDialogController>   (kQGCControllers,                       1, 0, "EditPositionDialogController");
+    qmlRegisterType<Database_Env>                   (kQGCControllers,                       1, 0, "Database_Env");
 
 #ifndef __mobile__
     qmlRegisterType<ViewWidgetController>           (kQGCControllers,                       1, 0, "ViewWidgetController");

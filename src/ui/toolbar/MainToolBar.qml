@@ -159,7 +159,7 @@ Rectangle {
                 anchors.top:        parent.top
                 anchors.bottom:     parent.bottom
                 exclusiveGroup:     mainActionGroup
-                source:             "/qmlimages/Analyze.svg"
+                source:             "/qmlimages/evaluation.svg"
                 onClicked:          toolBar.showEvaluationView()
             }
             QGCToolBarButton {
@@ -167,13 +167,14 @@ Rectangle {
                 anchors.top:        parent.top
                 anchors.bottom:     parent.bottom
                 exclusiveGroup:     mainActionGroup
-                source:             "/qmlimages/Analyze.svg"
+                source:             "/qmlimages/report.svg"
                 onClicked:          toolBar.showReportView()
             }
             QGCRadioButton{
                 id:                 id_UAVMessage
                 anchors.top:        parent.top
                 anchors.bottom:     parent.bottom
+                textFontPointSize:  ScreenTools.defaultFontPointSize*1.5
                 text: qsTr("无人机信息")
             }
             Rectangle {

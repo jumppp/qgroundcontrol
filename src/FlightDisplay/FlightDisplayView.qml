@@ -29,13 +29,14 @@ import QGroundControl.Palette       1.0
 import QGroundControl.ScreenTools   1.0
 import QGroundControl.Vehicle       1.0
 
+
 /// Flight Display View
 QGCView {
     id:             root
     viewPanel:      _panel
 
     QGCPalette { id: qgcPal; colorGroupEnabled: enabled }
-
+    Database_Env {id:mysqlDatabase}
     property alias  guidedController:   guidedActionsController
 
     property bool activeVehicleJoystickEnabled: _activeVehicle ? _activeVehicle.joystickEnabled : false
@@ -770,6 +771,8 @@ QGCView {
             model: preFlightCheckModel
         }
     }
+
+
     property bool sideWindShow: false
     Item {
         id: drawer

@@ -21,8 +21,8 @@ public:
     QString creatTable1 ="create table happytest3 (t_time DATETIME,t_time_time TIME,altitude DOUBLE)";
     QString inserttoTable1 ="insert into happytest3 (t_time,t_time_time,altitude) values(:t_time,:t_time_time,:altitude)";
 
-    QString tableName2 = "happytest4";
-    QString creatTable2 ="create table happytest4 (id int not null auto_increment primary key,"
+    QString tableName5 = "happytest5";
+    QString creatTable5 ="create table happytest5 (id int not null auto_increment primary key,"
                          "t_time DATETIME,"
                          "t_time_time TIME,"
                          "longitude decimal(10,7),"
@@ -37,7 +37,7 @@ public:
                          "NO2 int,"
                          "CO float,"
                          "O3 int)";
-    QString inserttoTable2 ="insert into happytest4 (id,t_time,t_time_time,longitude,latitude,altitude,tempreture,humidity,presure,pm2_5,pm10,SO2,NO2,CO,O3) "
+    QString inserttoTable5 ="insert into happytest5 (id,t_time,t_time_time,longitude,latitude,altitude,tempreture,humidity,presure,pm2_5,pm10,SO2,NO2,CO,O3) "
                             "values(:id,:t_time,:t_time_time,:longitude,:latitude,:altitude,:tempreture,:humidity,:presure,:pm2_5,:pm10,:SO2,:NO2,:CO,:O3)";
 
     int msecInterval = 2000;
@@ -46,7 +46,7 @@ public:
     Q_INVOKABLE bool disconnect_Database();
     QSqlDatabase  db;
     void timer_Record();
-    QTimer *timer;
+    QTimer* timer;
 signals:
 
 public slots:
