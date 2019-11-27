@@ -39,8 +39,8 @@ Item {
     readonly property string _setupViewSource:      "SetupView.qml"
     readonly property string _planViewSource:       "PlanView.qml"
     readonly property string _analyzeViewSource:    "AnalyzeView.qml"
-    readonly property string _evaluationViewSource:    "SetupView.qml"
-    readonly property string _reportViewSource:    "SetupView.qml"
+    readonly property string _evaluationViewSource: "SetupView.qml"
+    readonly property string _reportViewSource:     "ReportView.qml"
 
     onHeightChanged: {
         //-- We only deal with the available height if within the Fly or Plan view

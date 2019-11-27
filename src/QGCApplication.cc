@@ -91,7 +91,7 @@
 #include "QGCFileDownload.h"
 #include "FirmwareImage.h"
 #include "database_env.h"
-
+#include "sqlquerymodel.h"
 
 #ifndef NO_SERIAL_LINK
 #include "SerialLink.h"
@@ -452,7 +452,7 @@ void QGCApplication::_initCommon(void)
     qmlRegisterType<SyslinkComponentController>     (kQGCControllers,                       1, 0, "SyslinkComponentController");
     qmlRegisterType<EditPositionDialogController>   (kQGCControllers,                       1, 0, "EditPositionDialogController");
     qmlRegisterType<Database_Env>                   (kQGCControllers,                       1, 0, "Database_Env");
-
+    qmlRegisterType<SqlQueryModel>                  ("QGroundControl",                      1, 0, "SqlQueryModel");
 #ifndef __mobile__
     qmlRegisterType<ViewWidgetController>           (kQGCControllers,                       1, 0, "ViewWidgetController");
     qmlRegisterType<CustomCommandWidgetController>  (kQGCControllers,                       1, 0, "CustomCommandWidgetController");

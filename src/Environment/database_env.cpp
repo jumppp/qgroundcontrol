@@ -15,11 +15,13 @@
 #include<QDateTime>
 #include <QSqlError>
 #include <QThread>
+#include "Vehicle.h"
+
 
 
 Database_Env::Database_Env(QObject *parent) : QObject(parent),_dbopen(false)
 {
-    qmlRegisterType<Database_Env>   ("QGroundControl.Controllers", 1, 0, "Database_Env");
+
 
 }
 
@@ -73,14 +75,14 @@ void Database_Env::timer_Record()
 
     QSqlQuery query(db);
     QStringList table = db.tables();
-    if(table.contains(tableName1))
+    if(table.contains(tableName5))
     {
-         query.prepare(creatTable1);
+         query.prepare(creatTable5);
          qDebug()<<"table already exsists";
     }
     else {
-        query.prepare(creatTable1);
-        query.exec(creatTable1);
+        query.prepare(creatTable5);
+        query.exec(creatTable5);
         qDebug()<<"create new table succeed";
         if(query.exec())
         {
@@ -94,6 +96,7 @@ void Database_Env::timer_Record()
     }
 
     timer->setInterval(msecInterval);
+    qDebug()<<"timer 11111";
     connect(timer,SIGNAL(timeout()),this,SLOT(startSql()));
     timer->start();
 
@@ -106,20 +109,20 @@ void Database_Env::startSql()
     QString cur_time = cur_date_time.toString("yyyy-MM-dd hh:mm:ss");
     QString cur_time_time = cur_date_time.toString("hh:mm:ss");
     qDebug()<<cur_time;
+
     double longitude = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gpsFactGroup()->getFact("lon")->rawValue().toDouble();
     double latitude = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gpsFactGroup()->getFact("lat")->rawValue().toDouble();
     double altitude = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->altitudeRelative()->rawValue().toDouble();
-    float gastempreture = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("gastempereture")->rawValue().toInt();
+    float gastempreture = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("gasTemperature")->rawValue().toInt();
     int humidity = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("humidity")->rawValue().toInt();
-    int gaspressure = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("gaspressure")->rawValue().toInt();
+    int gaspressure = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("gasPressure")->rawValue().toInt();
     int pm25 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("pm25")->rawValue().toInt();
     int pm10 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("pm10")->rawValue().toInt();
     int SO2 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("so2")->rawValue().toInt();
     int NO2 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("no2")->rawValue().toInt();
     int CO = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("co")->rawValue().toInt();
     int O3 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("o3")->rawValue().toInt();
-
-    query.prepare(inserttoTable1);
+    query.prepare(inserttoTable5);
     query.bindValue(":t_time",cur_time);
     query.bindValue(":t_time_time",cur_time_time);
     query.bindValue(":longitude",longitude);
@@ -127,8 +130,8 @@ void Database_Env::startSql()
     query.bindValue(":altitude",altitude);
     query.bindValue(":tempreture",gastempreture);
     query.bindValue(":humidity",humidity);
-    query.bindValue(":pressure",gaspressure);
-    query.bindValue(":pm25",pm25);
+    query.bindValue(":presure",gaspressure);
+    query.bindValue(":pm2_5",pm25);
     query.bindValue(":pm10",pm10);
     query.bindValue(":SO2",SO2);
     query.bindValue(":NO2",NO2);
