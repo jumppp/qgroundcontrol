@@ -782,11 +782,12 @@ QGCView {
 
 
         function showWinShow(){
+            recloder.visible=true
             recloder.source = "qrc:/qml/FlightDisplayView_Drawer.qml"
         }
         function showNothing()
         {
-            recloder.source = ""
+            recloder.visible=false
         }
         Loader{
             id:recloder

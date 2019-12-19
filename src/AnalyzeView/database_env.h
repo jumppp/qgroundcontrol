@@ -11,6 +11,7 @@ class Database_Env : public QObject
     Q_OBJECT
 public:
     explicit Database_Env(QObject *parent = nullptr);
+    ~Database_Env();
     QString dbName = "test";
 
     QString tableName = "happytest";
@@ -21,10 +22,11 @@ public:
     QString creatTable1 ="create table happytest3 (t_time DATETIME,t_time_time TIME,altitude DOUBLE)";
     QString inserttoTable1 ="insert into happytest3 (t_time,t_time_time,altitude) values(:t_time,:t_time_time,:altitude)";
 
-    QString tableName5 = "happytest5";
-    QString creatTable5 ="create table happytest5 (id int not null auto_increment primary key,"
+    QString tableName6 = "happytest7";
+    QString creatTable6 ="create table happytest7(id int not null auto_increment primary key,"
                          "t_time DATETIME,"
                          "t_time_time TIME,"
+                         "identification varchar(20),"
                          "longitude decimal(10,7),"
                          "latitude decimal(10,7),"
                          "altitude float(5,2),"
@@ -37,17 +39,25 @@ public:
                          "NO2 int,"
                          "CO float,"
                          "O3 int)";
-    QString inserttoTable5 ="insert into happytest5 (id,t_time,t_time_time,longitude,latitude,altitude,tempreture,humidity,presure,pm2_5,pm10,SO2,NO2,CO,O3) "
-                            "values(:id,:t_time,:t_time_time,:longitude,:latitude,:altitude,:tempreture,:humidity,:presure,:pm2_5,:pm10,:SO2,:NO2,:CO,:O3)";
+    QString inserttoTable6 ="insert into happytest7 (id,t_time,t_time_time,identification,longitude,latitude,altitude,tempreture,humidity,presure,pm2_5,pm10,SO2,NO2,CO,O3) "
+                            "values(:id,:t_time,:t_time_time,:identification,:longitude,:latitude,:altitude,:tempreture,:humidity,:presure,:pm2_5,:pm10,:SO2,:NO2,:CO,:O3)";
 
-    int msecInterval = 2000;
+
+
+
     Q_INVOKABLE bool connect_Database();
-    bool _dbopen;
     Q_INVOKABLE bool disconnect_Database();
-    QSqlDatabase  db;
-    void timer_Record();
     QTimer* timer;
+
 signals:
+private:
+    void timer_Record();
+
+    QString strStarTime;
+    QString getMissonStartTime();
+    QSqlDatabase  db;
+    bool _dbopen;
+    int msecInterval = 2000;
 
 public slots:
     void startSql();

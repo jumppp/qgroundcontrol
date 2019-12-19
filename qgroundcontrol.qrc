@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/unittest">
         <file alias="FactSystemTest.qml">src/FactSystem/FactSystemTest.qml</file>
+        <file>src/Environment/Correlation.qml</file>
     </qresource>
     <qresource prefix="/toolbar">
         <file alias="ArmedIndicator.qml">src/ui/toolbar/ArmedIndicator.qml</file>
@@ -210,6 +211,11 @@
         <file alias="VirtualJoystick.qml">src/FlightDisplay/VirtualJoystick.qml</file>
         <file alias="FlightDisplayView_Drawer.qml">src/Environment/FlightDisplayView_Drawer.qml</file>
         <file alias="ReportView.qml">src/Environment/ReportView.qml</file>
+        <file alias="EvaluationView.qml">src/Environment/EvaluationView.qml</file>
+        <file alias="GeneralAnalyze.qml">src/Environment/GeneralAnalyze.qml</file>
+        <file alias="ChartTab.qml">src/Environment/ChartTab.qml</file>
+        <file alias="Correlation.qml">src/Environment/Correlation.qml</file>
+        <file alias="Vertical.qml">src/Environment/Vertical.qml</file>
     </qresource>
     <qresource prefix="/json">
         <file alias="CameraCalc.FactMetaData.json">src/MissionManager/CameraCalc.FactMetaData.json</file>

@@ -24,6 +24,15 @@ Database_Env::Database_Env(QObject *parent) : QObject(parent),_dbopen(false)
 
 
 }
+Database_Env::~Database_Env(){
+
+    if(db.isOpen())
+    {
+        db.close();
+    }
+    timer->stop();
+
+}
 
 bool Database_Env::connect_Database()
 {
@@ -37,6 +46,9 @@ bool Database_Env::connect_Database()
         db.setHostName("localhost");
         db.setUserName("root");
         db.setPassword("123456");
+        if (db.isOpen()) {
+            db.close();
+        }
         _dbopen = db.open();
         if (_dbopen)
         {
@@ -75,15 +87,14 @@ void Database_Env::timer_Record()
 
     QSqlQuery query(db);
     QStringList table = db.tables();
-    if(table.contains(tableName5))
+    if(table.contains(tableName6))
     {
-         query.prepare(creatTable5);
+         query.prepare(creatTable6);
          qDebug()<<"table already exsists";
     }
     else {
-        query.prepare(creatTable5);
-        query.exec(creatTable5);
-        qDebug()<<"create new table succeed";
+        query.prepare(creatTable6);
+        query.exec(creatTable6);
         if(query.exec())
         {
             qDebug()<<"new table created success";
@@ -94,12 +105,20 @@ void Database_Env::timer_Record()
             qDebug()<<db.lastError().text();
         }
     }
-
+    timer = new QTimer();
     timer->setInterval(msecInterval);
     qDebug()<<"timer 11111";
     connect(timer,SIGNAL(timeout()),this,SLOT(startSql()));
     timer->start();
+    strStarTime=getMissonStartTime();
 
+}
+
+QString Database_Env::getMissonStartTime()
+{
+    QDateTime cur_date_time = QDateTime::currentDateTime();
+    QString cur_time = cur_date_time.toString("yyyyMMddhhmmss");
+    return cur_time;
 }
 
 void Database_Env::startSql()
@@ -114,28 +133,32 @@ void Database_Env::startSql()
     double latitude = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gpsFactGroup()->getFact("lat")->rawValue().toDouble();
     double altitude = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->altitudeRelative()->rawValue().toDouble();
     float gastempreture = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("gasTemperature")->rawValue().toInt();
+    float temperature = gastempreture/100;
     int humidity = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("humidity")->rawValue().toInt();
     int gaspressure = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("gasPressure")->rawValue().toInt();
     int pm25 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("pm25")->rawValue().toInt();
     int pm10 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("pm10")->rawValue().toInt();
     int SO2 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("so2")->rawValue().toInt();
     int NO2 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("no2")->rawValue().toInt();
-    int CO = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("co")->rawValue().toInt();
+    float CO = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("co")->rawValue().toInt();
+    float COO=CO/100;
     int O3 = qgcApp()->toolbox()->multiVehicleManager()->activeVehicle()->gasSensorFactGroup()->getFact("o3")->rawValue().toInt();
-    query.prepare(inserttoTable5);
+    qDebug()<<strStarTime;
+    query.prepare(inserttoTable6);
     query.bindValue(":t_time",cur_time);
     query.bindValue(":t_time_time",cur_time_time);
-    query.bindValue(":longitude",longitude);
-    query.bindValue(":latitude",latitude);
-    query.bindValue(":altitude",altitude);
-    query.bindValue(":tempreture",gastempreture);
+    query.bindValue(":identification",strStarTime);
+    //query.bindValue(":longitude",longitude);
+    //query.bindValue(":latitude",latitude);
+    //query.bindValue(":altitude",altitude);
+    query.bindValue(":tempreture",temperature);
     query.bindValue(":humidity",humidity);
     query.bindValue(":presure",gaspressure);
     query.bindValue(":pm2_5",pm25);
     query.bindValue(":pm10",pm10);
     query.bindValue(":SO2",SO2);
     query.bindValue(":NO2",NO2);
-    query.bindValue(":CO",CO);
+    query.bindValue(":CO",COO);
     query.bindValue(":O3",O3);
 
     bool success = query.exec();

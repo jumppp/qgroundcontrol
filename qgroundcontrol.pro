@@ -1289,4 +1289,9 @@ include(QGCInstaller.pri)
 DISTFILES += \
     src/Vehicle/GasSensorFactGroup.json \
     src/Environment/FlightDisplayView_Drawer.qml \
-    src/Environment/ReportView.qml
+    src/Environment/ReportView.qml \
+    src/Environment/EvaluationView.qml \
+    src/Environment/GeneralAnalyze.qml \
+    src/Environment/ChartTab.qml \
+    src/Environment/Correlation.qml \
+    src/Environment/Vertical.qml
