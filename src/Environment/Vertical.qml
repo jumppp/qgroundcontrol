@@ -57,11 +57,11 @@ QGCView{
                     tickCount:      10
                 }
 
-                LineSeries{
+                SplineSeries{
                     id:             pm25line
                     axisX:          pm25_x_axis
                     axisY:          pm25_y_axis
-                    width:          2
+                    width:          3
                     capStyle:       Qt.FlatCap
                     name:           "pm2.5(ug/cm3)"
                 }
@@ -86,11 +86,11 @@ QGCView{
                     tickCount:      13
                     titleText:      "时间"
                 }
-                LineSeries{
+                SplineSeries{
                     id:             pm10line
                     axisX:          pm10_x_axis
                     axisY:          pm10_y_axis
-                    width:          1
+                    width:          3
                     capStyle:       Qt.FlatCap
                     name:           "pm10(ug/cm3)"
                 }
@@ -116,11 +116,11 @@ QGCView{
                     tickCount:      13
                     titleText:      "时间"
                 }
-                LineSeries{
+                SplineSeries{
                     id:             so2line
                     axisX:          so2_x_axis
                     axisY:          so2_y_axis
-                    width:          1
+                    width:          3
                     capStyle:       Qt.FlatCap
                     name:           "ppb"
                 }

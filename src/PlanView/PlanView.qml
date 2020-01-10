@@ -434,7 +434,11 @@ QGCView {
             }
         }
     }
+//xmc add
 
+
+
+//xmc add
     QGCViewPanel {
         id:             panel
         anchors.fill:   parent
@@ -654,6 +658,89 @@ QGCView {
                     }
                 }
             }
+
+          //adddddddddddddddddddddddddddddddddddddddddddddddd
+            ToolStrip {
+                id:                 toolStrip2
+                anchors.leftMargin: ScreenTools.defaultFontPixelWidth
+                anchors.left:       toolStrip.right
+                anchors.topMargin:  _toolButtonTopMargin
+                anchors.top:        parent.top
+                color:              "#C6C2C6"
+                title:              qsTr("Plan")
+                z:                  QGroundControl.zOrderWidgets
+                showAlternateIcon:  [ masterController.dirty, false, false, false, false, false, false ]
+                rotateImage:        [ masterController.syncInProgress, false, false, false, false, false, false ]
+                animateImage:       [ masterController.dirty, false, false, false, false, false, false ]
+                buttonEnabled:      [ !masterController.syncInProgress, true, true, true, true, true, true ]
+                buttonVisible:      [ true, true, _waypointsOnlyMode, true, true, _showZoom, _showZoom ]
+                maxHeight:          mapScale.y - toolStrip2.y
+
+                property bool _showZoom: !ScreenTools.isMobile
+
+                model: [
+                    {
+                        name:                   qsTr("File"),
+                        iconSource:             "/qmlimages/MapSync.svg",
+                        alternateIconSource:    "/qmlimages/MapSyncChanged.svg",
+                        dropPanelComponent:     syncDropPanel
+                    },
+                    {
+                        name:                   qsTr("Waypoint"),
+                        iconSource:             "/qmlimages/MapAddMission.svg",
+                        toggle:                 true
+                    },
+                    {
+                        name:                   qsTr("ROI"),
+                        iconSource:             "/qmlimages/MapAddMission.svg",
+                        toggle:                 true
+                    },
+                    {
+                        name:               _singleComplexItem ? _missionController.complexMissionItemNames[0] : qsTr("Pattern"),
+                        iconSource:         "/qmlimages/MapDrawShape.svg",
+                        dropPanelComponent: _singleComplexItem ? undefined : patternDropPanel
+                    },
+                    {
+                        name:               qsTr("Center"),
+                        iconSource:         "/qmlimages/MapCenter.svg",
+                        dropPanelComponent: centerMapDropPanel
+                    },
+                    {
+                        name:               qsTr("In"),
+                        iconSource:         "/qmlimages/ZoomPlus.svg"
+                    },
+                    {
+                        name:               qsTr("Out"),
+                        iconSource:         "/qmlimages/report.svg"
+                    }
+                ]
+
+                onClicked: {
+                    switch (index) {
+                    case 1:
+                        _addWaypointOnClick = checked
+                        _addROIOnClick = false
+                        break
+                    case 2:
+                        _addROIOnClick = checked
+                        _addWaypointOnClick = false
+                        break
+                    case 3:
+                        if (_singleComplexItem) {
+                            addComplexItem(_missionController.complexMissionItemNames[0])
+                        }
+                        break
+                    case 5:
+                        editorMap.zoomLevel += 0.5
+                        break
+                    case 6:
+                        editorMap.zoomLevel -= 0.5
+                        break
+                    }
+                }
+            }
+
+            //addddddddddddddddddddddddddddd
         }
         //-----------------------------------------------------------
         // Right pane for mission editing controls

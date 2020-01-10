@@ -7,7 +7,7 @@ import QGroundControl.Palette       1.0
 import QGroundControl.ScreenTools   1.0
 
 Button {
-    id:             _rootButton
+    id:             _rootButton1
     property bool   setupComplete:  true                                    ///< true: setup complete indicator shows as completed
     property bool   setupIndicator: true                                    ///< true: show setup complete indicator
     property string imageResource:  "/qmlimages/subMenuButtonImage.png"     ///< Button image

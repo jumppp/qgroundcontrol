@@ -177,7 +177,7 @@ Item {
             property var  qgcView:      widgetRoot.qgcView
             property real maxHeight:    widgetRoot ? widgetRoot.height - instrumentsColumn.y - airspaceControl.height - (ScreenTools.defaultFontPixelHeight * 4) : 0
             //xmc add make insturment panel invisible
-            visible: false
+            visible: true
             //xmc add make insturment panel invisible
             states: [
                 State {

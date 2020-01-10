@@ -43,50 +43,64 @@ Rectangle{
     property var identification: 0
     property var xxx: []
     property var yyy:[]
+    Item {
+        id: toprowitem
+        width: parent.width
+        height:  parent.height/10
+        Row{
+            id:toprow
+            spacing:            _margin
+            anchors.verticalCenter: parent.verticalCenter
+            //anchors.horizontalCenter: parent.horizontalCenter
+            QGCLabel{
+                text:"当前选择是:"
+            }
+            QGCTextField {
+                readOnly:           true
+                Layout.fillWidth:   true
+                text:               identification
 
-
-    Row{
-        id:toprow
-        height:             parent.height/10
-        anchors.top:        parent.top
-        anchors.left:       parent.left
-        spacing:            _margin
-        Layout.alignment:   Qt.AlignCenter
-
-        QGCButton {
-            text:       qsTr("Choose")
-            width:      _butttonWidth
-            onClicked:{
-                mymodel.setDatabase("test")
-                mymodel.setQuery("select * from happytest7 group by identification order by identification desc")
-                tableview.model=mymodel;
-                choseDialog.open()
             }
 
-        }
-        QGCButton {
-            text:       qsTr("Analyze")
-            width:      _butttonWidth
-            onClicked: {
-                mymodel.eraseAll()
-                mymodel.setDatabase("test")
-                mymodel.setQuery(String("select * from happytest7 where identification = %1").arg(identification))
-                chartload.source="GeneralAnalyze.qml"
-
-                //getXYValue(databaseTime,databasePm25,pm25line,pm25_x_axis)
-
+            QGCButton {
+                text:       qsTr("Choose")
+                width:      _butttonWidth
+                onClicked:{
+                    mymodel.setDatabase("test")
+                    mymodel.setQuery("select * from happytest7 group by identification order by identification desc")
+                    tableview.model=mymodel;
+                    choseDialog.open()
+                }
 
             }
-        }
+            QGCButton {
+                text:       qsTr("Analyze")
+                width:      _butttonWidth
+                enabled:    identification!=0
+                onClicked: {
+                    mymodel.eraseAll()
+                    mymodel.setDatabase("test")
+                    mymodel.setQuery(String("select * from happytest7 where identification = %1").arg(identification))
+                    chartload.source="GeneralAnalyze.qml"
 
-        QGCButton {
+                    //getXYValue(databaseTime,databasePm25,pm25line,pm25_x_axis)
 
-            text:       qsTr("All Data")
-            width:      _butttonWidth
+
+                }
+            }
+
+            QGCButton {
+
+                text:       qsTr("All Data")
+                width:      _butttonWidth
+
+            }
 
         }
 
     }
+
+
 
     Dialog{
         id: choseDialog
@@ -124,12 +138,13 @@ Rectangle{
 
     Row {
         id:         buttonRow
-        anchors.top:    toprow.bottom
+        anchors.top:    toprowitem.bottom
         anchors.left: parent.left
         spacing:    _defaultTextHeight / 2
         height:  30
 
         Repeater {
+
             id: buttonRepeater
 
             model: ListModel {
@@ -213,7 +228,6 @@ Rectangle{
         }
 
     }
-
 
 }
 

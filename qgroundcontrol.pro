@@ -1294,4 +1294,9 @@ DISTFILES += \
     src/Environment/GeneralAnalyze.qml \
     src/Environment/ChartTab.qml \
     src/Environment/Correlation.qml \
-    src/Environment/Vertical.qml
+    src/Environment/Vertical.qml \
+    src/Environment/UAVMessage.qml \
+    src/Environment/ToolStripRow.qml \
+    src/Environment/UAVButton.qml \
+    src/Environment/BatteryMessage.qml \
+    src/Environment/remoteControl.qml

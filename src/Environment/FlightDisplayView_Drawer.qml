@@ -527,7 +527,7 @@ QGCView {
             }
             Item {
                 id: o3Item
-                width:unitWidth*2.3;
+                width:unitWidth*2.3
                 height:unitHeight*1.7
                 Item {
                     id: emptyItem3

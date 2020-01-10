@@ -38,7 +38,6 @@ QGCView {
     QGCPalette { id: qgcPal; colorGroupEnabled: enabled }
     Database_Env {id:mysqlDatabase}
     property alias  guidedController:   guidedActionsController
-
     property bool activeVehicleJoystickEnabled: _activeVehicle ? _activeVehicle.joystickEnabled : false
 
     property var    _planMasterController:  masterController
@@ -813,14 +812,14 @@ QGCView {
         Rectangle { //弹窗的“按钮”，此处是因为使用了图标所以用Rectangle来实现
                 id: popUpBtn
                 color: "#00000000" //设置此”按钮“为全透明
-                width: 64
-                height: 64
+                width: 23
+                height: 153
                 anchors.right:  sideWin.left//此处的锚布局设置为弹窗的右侧
                 anchors.verticalCenter: sideWin.verticalCenter //锚布局为弹窗的垂直中线上
 
                 Image {
                     anchors.centerIn: parent
-                    source: "/qmlimages/VehicleSummaryIcon.png"
+                    source: "/qmlimages/arrowleft.png"
 
                     MouseArea { //此处是实现点击的关键(所以说Qml中很多时候不会直接使用Button，因为通过自己的样式选择可以轻易实现”按钮“功能)
                         anchors.fill: parent
@@ -837,7 +836,7 @@ QGCView {
                             sideWindShow = !sideWindShow
                             // 三目运算符的用法，在此处改变弹窗的位置坐标，此时弹窗的行为即会触发出现动态效果
                             sideWindShow ? sideWin.x = root.width - sideWin.width-10 : sideWin.x = root.width
-                            sideWindShow ? parent.source = "/qmlimages/VehicleSummaryIcon.png" : parent.source = "/qmlimages/VehicleSummaryIcon.png"
+                            sideWindShow ? parent.source = "/qmlimages/arrowright.png" : parent.source = "/qmlimages/arrowleft.png"
                             sideWindShow ? drawer.showWinShow():drawer.showNothing()
 
                         }

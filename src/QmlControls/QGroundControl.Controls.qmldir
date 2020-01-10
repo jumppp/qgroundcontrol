@@ -82,3 +82,4 @@ ToolStrip               1.0 ToolStrip.qml
 VehicleRotationCal      1.0 VehicleRotationCal.qml
 VehicleSummaryRow       1.0 VehicleSummaryRow.qml
 ViewWidget              1.0 ViewWidget.qml
+ToolStripRow            1.0 ToolStripRow.qml

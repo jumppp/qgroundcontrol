@@ -25,7 +25,6 @@ Rectangle {
     color:          qgcPal.window
     border.width:   1
     border.color:   _isSatellite ? qgcPal.mapWidgetBorderLight : qgcPal.mapWidgetBorderDark
-
     property var    _qgcView:           qgcView
     property real   _innerRadius:       (width - (_topBottomMargin * 3)) / 4
     property real   _outerRadius:       _innerRadius + _topBottomMargin
@@ -70,8 +69,8 @@ Rectangle {
         anchors.top:        parent.bottom
         width:              parent.width
         height:             _valuesWidget.height
-        visible:            widgetRoot.showValues
-
+        //visible:            widgetRoot.showValues
+        visible: false
         // Prevent all clicks from going through to lower layers
         DeadMouseArea {
             anchors.fill: parent

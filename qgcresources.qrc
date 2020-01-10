@@ -184,6 +184,9 @@
         <file alias="check.svg">resources/check.svg</file>
         <file alias="report.svg">src/Environment/report.svg</file>
         <file alias="evaluation.svg">src/Environment/evaluation.svg</file>
+        <file alias="arrowleft.png">src/Environment/arrowleft.png</file>
+        <file alias="arrowright.png">src/Environment/arrowright.png</file>
+        <file>src/Environment/envNetwork.svg</file>
     </qresource>
     <qresource prefix="/res">
         <file alias="action.svg">resources/action.svg</file>
@@ -229,6 +232,7 @@
         <file alias="XDeleteBlack.svg">resources/XDeleteBlack.svg</file>
         <file alias="waypoint.svg">resources/waypoint.svg</file>
         <file>resources/icons/qgroundcontrol.ico</file>
+        <file>src/Environment/envSector.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="px4.png">resources/firmware/px4.png</file>

@@ -41,7 +41,7 @@ Item {
     readonly property string _analyzeViewSource:    "AnalyzeView.qml"
     readonly property string _evaluationViewSource: "EvaluationView.qml"
     readonly property string _reportViewSource:     "ReportView.qml"
-
+    readonly property string _uavMessageSource:     "UAVButton.qml"
     onHeightChanged: {
         //-- We only deal with the available height if within the Fly or Plan view
         if(!setupViewLoader.visible) {
@@ -169,6 +169,20 @@ Item {
         reportViewLoader.visible = true
         toolBar.checkReportButton()
     }
+
+    function showVehicleMessage(){
+
+
+        if(uav_MessageLoader.source !=_uavMessageSource ){
+            uav_MessageLoader.source =_uavMessageSource
+        }
+        uav_MessageLoader.visible=true
+    }
+    function showNoVehicleMessage()
+    {
+        uav_MessageLoader.visible=false
+    }
+
 //add
     /// Start the process of closing QGroundControl. Prompts the user are needed.
     function attemptWindowClose() {
@@ -320,6 +334,9 @@ Item {
         onShowAnalyzeView:      mainWindow.showAnalyzeView()
         onShowEvaluationView:   mainWindow.showEvaluationView()
         onShowReportView:       mainWindow.showReportView()
+        onShowVehicleMessage:   mainWindow.showVehicleMessage()
+        onShowNoVehicleMessage: mainWindow.showNoVehicleMessage()
+
         onArmVehicle:           flightView.guidedController.confirmAction(flightView.guidedController.actionArm)
         onDisarmVehicle: {
             if (flightView.guidedController.showEmergenyStop) {
@@ -649,6 +666,20 @@ Item {
     Loader {
         id:         rootLoader
         anchors.centerIn: parent
+    }
+
+    Loader{
+        id: uav_MessageLoader
+        anchors.left:parent.left
+        anchors.leftMargin: 53
+        anchors.top:toolBar.bottom
+        anchors.topMargin: ScreenTools.toolbarHeight/2-8
+        width: parent.width/6
+        height: parent.height/2.5
+        visible:  false
+
+
+
     }
 
 }

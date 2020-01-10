@@ -42,6 +42,10 @@ Rectangle {
     signal vtolTransitionToFwdFlight
     signal vtolTransitionToMRFlight
 
+    //show VehicleMessage
+    signal showVehicleMessage
+    signal showNoVehicleMessage
+
     function checkSettingsButton() {
         settingsButton.checked = true
     }
@@ -70,6 +74,11 @@ Rectangle {
     function checkReportButton() {
         reportButton.checked = true
     }
+
+    function checkVehicleMessage(){
+        id_UAVMessage.checked=true;
+    }
+
     //add function
 
     Component.onCompleted: {
@@ -173,9 +182,27 @@ Rectangle {
             QGCRadioButton{
                 id:                 id_UAVMessage
                 anchors.top:        parent.top
-                anchors.bottom:     parent.bottom
+                anchors.topMargin:  10
+                //anchors.bottom:     parent.bottom
                 textFontPointSize:  ScreenTools.defaultFontPointSize*1.5
                 text: qsTr("无人机信息")
+                //horizontalCenter: viewRow.horizontalCenter
+
+                onClicked: {
+                    if(id_UAVMessage.checked){
+                        toolBar.showVehicleMessage()
+                    }
+
+                    if(!id_UAVMessage.checked)
+                    {
+                        toolBar.showNoVehicleMessage()
+                    }
+
+
+
+
+                }
+
             }
             Rectangle {
                 anchors.margins:    ScreenTools.defaultFontPixelHeight / 2
