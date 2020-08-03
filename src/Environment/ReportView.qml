@@ -24,6 +24,7 @@ Rectangle {
 
     property real _margin:          ScreenTools.defaultFontPixelWidth
     property real _butttonWidth:    ScreenTools.defaultFontPixelWidth * 10
+    property var iDent: -1
     property var a: []
     property var aa:[]
     SqlQueryModel{
@@ -45,7 +46,7 @@ Rectangle {
 
         TableViewColumn { role: "id" ; title: "ID"; visible: true ;width: 50}
         TableViewColumn { role: "t_time" ; title: "time" ;width: 180}
-        //TableViewColumn { role: "t_time_time" ; title: "t_time_time" }
+        TableViewColumn { role: "identification" ; title: "identification" }
         TableViewColumn { role: "longitude" ; title: "longitude";width: 150 }
         TableViewColumn { role: "latitude" ; title: "latitude";width: 150 }
         TableViewColumn { role: "altitude" ; title: "altitude" ;width: 50}
@@ -60,9 +61,12 @@ Rectangle {
         TableViewColumn { role: "O3" ; title: "O3";width: 50 }
 
 
-
-
+        onClicked: {
+            iDent = model1.getIndex(tableview.currentRow,3);
+            console.log(iDent)
+        }
     }
+
 
         Column {
             spacing:            _margin
@@ -77,8 +81,7 @@ Rectangle {
 
                 onClicked: {
                     model1.setDatabase("test");
-                    //model1.setQuery("select * from happytest5 group by pm2_5 order by pm2_5 desc");
-                    model1.setQuery("select * from happytest5 group by pm2_5 order by pm2_5")
+                    model1.setQuery("select * from happytest7 group by identification order by identification")
                     tableview.model = model1;
                 }
             }
@@ -88,8 +91,15 @@ Rectangle {
                 text:       qsTr("Download")
                 width:      _butttonWidth
                 onClicked: {
-                    model1.setDatabase("test");
-                    model1.test()
+                    if(iDent == -1)
+                    {
+                         console.log("iDent == -1")
+                    }
+                    else
+                    {
+                        mydatabase.exportCsv(iDent)
+                    }
+
                 }
 
 
@@ -148,7 +158,7 @@ Rectangle {
 
                 onClicked: {
                     model1.setDatabase("test");
-                    model1.setQuery("select * from happytest5");
+                    model1.setQuery("select * from happytest7");
                     tableview.model = model1;
                 }
             }

@@ -47,12 +47,13 @@ public:
 
     Q_INVOKABLE bool connect_Database();
     Q_INVOKABLE bool disconnect_Database();
+    Q_INVOKABLE void exportCsv(QString identification);
     QTimer* timer;
 
 signals:
 private:
     void timer_Record();
-
+    void ReadDataFromSqlWriteToCSV(const QString &tableName,const QString &csvFileName,QString identification);
     QString strStarTime;
     QString getMissonStartTime();
     QSqlDatabase  db;

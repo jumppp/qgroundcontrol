@@ -451,7 +451,6 @@ QGCView {
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 30
                     color: "white"
-
                 }
                 Text {
                     id: pm25Unit

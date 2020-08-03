@@ -3,6 +3,7 @@ import QtQuick.Controls 1.2
 import QtQuick.Layouts  1.2
 import QtCharts         2.2
 import QtQuick.Window   2.0
+import QtDataVisualization 1.2
 import QGroundControl                       1.0
 import QGroundControl.Controllers           1.0
 import QGroundControl.AutoPilotPlugin       1.0
@@ -24,7 +25,16 @@ QGCView{
 
     QGCPalette { id: qgcPal; colorGroupEnabled: true }
     ExclusiveGroup { id: setupButtonGroup }
+    SqlQueryModel{
+        id: model1
+    }
 
+    Theme3D {
+        id: themeIsabelle
+        type: Theme3D.ThemeIsabelle
+        font.family: "Lucida Handwriting"
+        font.pointSize: 40
+    }
     ScrollView{
         id:charscroll
         anchors.fill:   parent
@@ -125,11 +135,26 @@ QGCView{
                     name:           "ppb"
                 }
             }
-            QGCButton{
-                id:qwe
-                text:"asd"
-                onClicked:{
-                getXYValue(databaseTime,databasePm25,pm25line,pm25_x_axis)
+
+
+            Scatter3D {
+                id: scatterGraph
+                width:                  800
+                height:                 600
+                theme: themeIsabelle
+                shadowQuality: AbstractGraph3D.ShadowQualitySoftLow
+                Scatter3DSeries {
+                    id: scatterSeries
+
+                    //itemLabelFormat: "Series 1: X:@xLabel Y:@yLabel Z:@zLabel"
+
+                    ItemModelScatterDataProxy {
+                        itemModel: model1
+                        xPosRole: "longitude"
+                        yPosRole: "latitude"
+                        zPosRole: "pm2_5"
+                    }
+                    //! [11]
                 }
 
             }
@@ -138,12 +163,12 @@ QGCView{
     //用于获取xy轴数据
 
     Component.onCompleted: {
-
-
-
         //getXYValue(databaseTime,databasePm25,pm25line,pm25_x_axis)
         getXYValue(databaseTime,databasePm10,pm10line,pm10_x_axis)
         getXYValue(databaseTime,databaseSO2,so2line,so2_x_axis)
+        model1.setDatabase("test");
+        var a = model1.setQuery("select * from happytest5 order by longitude")
+        console.log(model1.data())
     }
 
 }

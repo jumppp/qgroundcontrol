@@ -109,6 +109,7 @@ QVariant SqlQueryModel::getIndex(const int &row,int role)
     return value;
 }
 
+
 int SqlQueryModel::getLastQuery(QString str){
 
 
@@ -133,8 +134,6 @@ int SqlQueryModel::getLastQuery(QString str){
     }
     int count = laststr-firststr;
     return count;
-
-
 
 }
 
