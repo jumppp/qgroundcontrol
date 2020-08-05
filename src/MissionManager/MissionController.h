@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -97,6 +97,8 @@ public:
     Q_PROPERTY(QString              surveyComplexItemName           READ surveyComplexItemName          CONSTANT)
     Q_PROPERTY(QString              corridorScanComplexItemName     READ corridorScanComplexItemName    CONSTANT)
     Q_PROPERTY(QString              structureScanComplexItemName    READ structureScanComplexItemName   CONSTANT)
+    Q_PROPERTY(QString              circleScanComplexItemName       READ circleScanComplexItemName      CONSTANT)
+    Q_PROPERTY(QString              sectorScanComplexItemName       READ sectorScanComplexItemName      CONSTANT)
 
     Q_INVOKABLE void removeMissionItem(int index);
 
@@ -177,6 +179,8 @@ public:
     QString             surveyComplexItemName       (void) const { return _surveyMissionItemName; }
     QString             corridorScanComplexItemName (void) const { return patternCorridorScanName; }
     QString             structureScanComplexItemName(void) const { return patternStructureScanName; }
+    QString             circleScanComplexItemName   (void) const { return patternCircleScanName; }
+    QString             sectorScanComplexItemName   (void) const { return patternSectorScanName; }
 
     int missionItemCount            (void) const { return _missionItemCount; }
     int currentMissionIndex         (void) const;
@@ -199,7 +203,8 @@ public:
     static const QString patternFWLandingName;
     static const QString patternStructureScanName;
     static const QString patternCorridorScanName;
-
+    static const QString patternCircleScanName;
+    static const QString patternSectorScanName;
 signals:
     void visualItemsChanged             (void);
     void waypointLinesChanged           (void);

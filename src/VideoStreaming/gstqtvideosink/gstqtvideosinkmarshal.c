@@ -1,5 +1,4 @@
-
-#include	<glib-object.h>
+﻿#include	<glib-object.h>
 
 #if defined(_MSC_VER)
 #pragma warning(disable: 4100)

@@ -409,7 +409,9 @@ HEADERS += \
     src/GPS/Drivers/src/base_station.h \
     src/AnalyzeView/test2.h \
     src/AnalyzeView/database_env.h \
-    src/AnalyzeView/sqlquerymodel.h
+    src/AnalyzeView/sqlquerymodel.h \
+    src/MissionManager/SectorScanComplexItem.h \
+    src/MissionManager/CircleScanComplexItem.h
 
 SOURCES += \
     src/api/QGCCorePlugin.cc \
@@ -419,7 +421,9 @@ SOURCES += \
     src/comm/MavlinkMessagesTimer.cc \
     src/AnalyzeView/test2.cpp \
     src/AnalyzeView/database_env.cpp \
-    src/AnalyzeView/sqlquerymodel.cpp
+    src/AnalyzeView/sqlquerymodel.cpp \
+    src/MissionManager/SectorScanComplexItem.cc \
+    src/MissionManager/CircleScanComplexItem.cc
 
 #
 # Unit Test specific configuration goes here (requires full debug build with all plugins)
@@ -1299,4 +1303,6 @@ DISTFILES += \
     src/Environment/ToolStripRow.qml \
     src/Environment/UAVButton.qml \
     src/Environment/BatteryMessage.qml \
-    src/Environment/remoteControl.qml
+    src/Environment/remoteControl.qml \
+    src/MissionManager/SectorScan.SettingsGroup.json \
+    src/MissionManager/CircleScan.SettingsGroup.json

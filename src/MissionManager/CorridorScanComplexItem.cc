@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -6,7 +6,6 @@
  * COPYING.md in the root of the source code directory.
  *
  ****************************************************************************/
-
 #include "CorridorScanComplexItem.h"
 #include "JsonHelper.h"
 #include "MissionController.h"

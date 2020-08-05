@@ -1,4 +1,4 @@
-Module QGroundControl.Controls
+﻿Module QGroundControl.Controls
 
 AnalyzePage             1.0 AnalyzePage.qml
 AppMessages             1.0 AppMessages.qml
@@ -51,6 +51,8 @@ QGCListView             1.0 QGCListView.qml
 QGCMapCircleVisuals     1.0 QGCMapCircleVisuals.qml
 QGCMapLabel             1.0 QGCMapLabel.qml
 QGCMapPolygonVisuals    1.0 QGCMapPolygonVisuals.qml
+QGCMapPolygonCircleVisuals    1.0 QGCMapPolygonCircleVisuals.qml
+QGCMapPolygonSectorVisuals    1.0 QGCMapPolygonSectorVisuals.qml
 QGCMapPolylineVisuals   1.0 QGCMapPolylineVisuals.qml
 QGCMouseArea            1.0 QGCMouseArea.qml
 QGCMovableItem          1.0 QGCMovableItem.qml

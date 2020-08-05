@@ -1,4 +1,4 @@
-#include "database_env.h"
+﻿#include "database_env.h"
 #include "QGCApplication.h"
 #include "database_env.h"
 #include <QSqlDatabase>

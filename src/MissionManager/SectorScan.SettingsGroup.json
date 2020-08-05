@@ -1,0 +1,64 @@
+﻿[
+{
+    "name":             "GimbalPitch",
+    "shortDescription": "Gimbal pitch rotation.",
+    "type":             "double",
+    "units":            "gimbal-degrees",
+    "min":              -90,
+    "max":              0,
+    "decimalPlaces":    0,
+    "defaultValue":     0
+},
+{
+    "name":             "SectorRadius",
+    "shortDescription": "设置半径.",
+    "type":             "double",
+    "units":            "m",
+    "decimalPlaces":    1,
+    "defaultValue":     50
+},
+{
+    "name":             "StartAngle",
+    "shortDescription": "起始角度.",
+    "type":             "double",
+    "units":            "deg",
+    "min":              0.0,
+    "max":              360.0,
+    "decimalPlaces":    0,
+    "defaultValue":     90.0
+},
+{
+    "name":             "FlyAngle",
+    "shortDescription": "扇形角度.",
+    "type":             "double",
+    "units":            "deg",
+    "min":              45.0,
+    "max":              90.0,
+    "decimalPlaces":    0,
+    "defaultValue":     45.0
+},
+{
+    "name":             "Altitude",
+    "shortDescription": "飞行高度.",
+    "type":             "double",
+    "units":            "m",
+    "decimalPlaces":    1,
+    "defaultValue":     50
+},
+{
+    "name":             "Layers",
+    "shortDescription": "扇形的个数.",
+    "type":             "uint32",
+    "min":              1,
+    "defaultValue":     1
+},
+{
+    "name":             "StructureHeight",
+    "shortDescription": "Height of structure being scanned.",
+    "type":             "double",
+    "decimalPlaces":    2,
+    "units":            "m",
+    "min":              1,
+    "defaultValue":     100
+}
+]

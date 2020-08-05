@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -19,6 +19,8 @@
 #include "SurveyComplexItem.h"
 #include "FixedWingLandingComplexItem.h"
 #include "StructureScanComplexItem.h"
+#include "CircleScanComplexItem.h"
+#include "SectorScanComplexItem.h"
 #include "CorridorScanComplexItem.h"
 #include "JsonHelper.h"
 #include "ParameterManager.h"
@@ -59,6 +61,8 @@ const int   MissionController::_missionFileVersion =            2;
 const QString MissionController::patternFWLandingName      (QT_TRANSLATE_NOOP("MissionController", "Fixed Wing Landing"));
 const QString MissionController::patternStructureScanName  (QT_TRANSLATE_NOOP("MissionController", "Structure Scan"));
 const QString MissionController::patternCorridorScanName   (QT_TRANSLATE_NOOP("MissionController", "Corridor Scan"));
+const QString MissionController::patternCircleScanName     (QT_TRANSLATE_NOOP("MissionController", "Circle Scan"));
+const QString MissionController::patternSectorScanName     (QT_TRANSLATE_NOOP("MissionController", "Sector Scan"));
 
 MissionController::MissionController(PlanMasterController* masterController, QObject *parent)
     : PlanElementController     (masterController, parent)
@@ -422,6 +426,10 @@ int MissionController::insertComplexMissionItem(QString itemName, QGeoCoordinate
         newItem = new StructureScanComplexItem(_controllerVehicle, _flyView, QString() /* kmlFile */, _visualItems /* parent */);
     } else if (itemName == patternCorridorScanName) {
         newItem = new CorridorScanComplexItem(_controllerVehicle, _flyView, QString() /* kmlFile */, _visualItems /* parent */);
+    } else if (itemName == patternCircleScanName) {
+        newItem = new CircleScanComplexItem(_controllerVehicle, _flyView, QString() /* kmlFile */, _visualItems /* parent */);
+    } else if (itemName == patternSectorScanName) {
+        newItem = new SectorScanComplexItem(_controllerVehicle, _flyView, QString() /* kmlFile */, _visualItems /* parent */);
     } else {
         qWarning() << "Internal error: Unknown complex item:" << itemName;
         return sequenceNumber;
@@ -440,6 +448,10 @@ int MissionController::insertComplexMissionItemFromKMLOrSHP(QString itemName, QS
         newItem = new StructureScanComplexItem(_controllerVehicle, _flyView, file, _visualItems);
     } else if (itemName == patternCorridorScanName) {
         newItem = new CorridorScanComplexItem(_controllerVehicle, _flyView, file, _visualItems);
+    } else if (itemName == patternCircleScanName) {
+        newItem = new CircleScanComplexItem(_controllerVehicle, _flyView, file, _visualItems);
+    } else if (itemName == patternSectorScanName) {
+        newItem = new SectorScanComplexItem(_controllerVehicle, _flyView, file, _visualItems);
     } else {
         qWarning() << "Internal error: Unknown complex item:" << itemName;
         return _nextSequenceNumber();
@@ -765,6 +777,24 @@ bool MissionController::_loadJsonMissionFileV2(const QJsonObject& json, QmlObjec
                 nextSequenceNumber = structureItem->lastSequenceNumber() + 1;
                 qCDebug(MissionControllerLog) << "Structure Scan load complete: nextSequenceNumber" << nextSequenceNumber;
                 visualItems->append(structureItem);
+            } else if (complexItemType == CircleScanComplexItem::jsonComplexItemTypeValue) {
+                qCDebug(MissionControllerLog) << "Loading Circle Scan: nextSequenceNumber" << nextSequenceNumber;
+                CircleScanComplexItem* circleItem = new CircleScanComplexItem(_controllerVehicle, _flyView, QString() /* kmlFile */, visualItems);
+                if (!circleItem->load(itemObject, nextSequenceNumber++, errorString)) {
+                    return false;
+                }
+                nextSequenceNumber = circleItem->lastSequenceNumber() + 1;
+                qCDebug(MissionControllerLog) << "Circle Scan load complete: nextSequenceNumber" << nextSequenceNumber;
+                visualItems->append(circleItem);
+            } else if (complexItemType == SectorScanComplexItem::jsonComplexItemTypeValue) {
+                qCDebug(MissionControllerLog) << "Loading Sector Scan: nextSequenceNumber" << nextSequenceNumber;
+                SectorScanComplexItem* sectorItem = new SectorScanComplexItem(_controllerVehicle, _flyView, QString() /* kmlFile */, visualItems);
+                if (!sectorItem->load(itemObject, nextSequenceNumber++, errorString)) {
+                    return false;
+                }
+                nextSequenceNumber = sectorItem->lastSequenceNumber() + 1;
+                qCDebug(MissionControllerLog) << "Sector Scan load complete: nextSequenceNumber" << nextSequenceNumber;
+                visualItems->append(sectorItem);
             } else if (complexItemType == CorridorScanComplexItem::jsonComplexItemTypeValue) {
                 qCDebug(MissionControllerLog) << "Loading Corridor Scan: nextSequenceNumber" << nextSequenceNumber;
                 CorridorScanComplexItem* corridorItem = new CorridorScanComplexItem(_controllerVehicle, _flyView, QString() /* kmlFile */, visualItems);
@@ -1952,6 +1982,8 @@ QStringList MissionController::complexMissionItemNames(void) const
 {
     QStringList complexItems;
 
+    complexItems.append(patternCircleScanName);
+    complexItems.append(patternSectorScanName);
     complexItems.append(_surveyMissionItemName);
     complexItems.append(patternCorridorScanName);
     if (_controllerVehicle->fixedWing()) {

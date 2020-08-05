@@ -1,0 +1,36 @@
+﻿[
+{
+    "name":             "GimbalPitch",
+    "shortDescription": "Gimbal pitch rotation.",
+    "type":             "double",
+    "units":            "gimbal-degrees",
+    "min":              -90,
+    "max":              0,
+    "decimalPlaces":    0,
+    "defaultValue":     0
+},
+{
+    "name":             "Altitude",
+    "shortDescription": "Altitude.",
+    "type":             "double",
+    "units":            "m",
+    "decimalPlaces":    1,
+    "defaultValue":     50
+},
+{
+    "name":             "Layers",
+    "shortDescription": "Layers.",
+    "type":             "uint32",
+    "min":              1,
+    "defaultValue":     1
+},
+{
+    "name":             "StructureHeight",
+    "shortDescription": "Height of structure being scanned.",
+    "type":             "double",
+    "decimalPlaces":    2,
+    "units":            "m",
+    "min":              1,
+    "defaultValue":     100
+}
+]

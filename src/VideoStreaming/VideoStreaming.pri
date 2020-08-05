@@ -193,3 +193,17 @@ VideoEnabled {
     }
 }
 
+HEADERS += \
+    $$PWD/iOS/gst_ios_init.h \
+    $$PWD/VideoItem.h \
+    $$PWD/VideoReceiver.h \
+    $$PWD/VideoStreaming.h \
+    $$PWD/VideoSurface.h \
+    $$PWD/VideoSurface_p.h
+
+SOURCES += \
+    $$PWD/VideoItem.cc \
+    $$PWD/VideoReceiver.cc \
+    $$PWD/VideoStreaming.cc \
+    $$PWD/VideoSurface.cc
+
