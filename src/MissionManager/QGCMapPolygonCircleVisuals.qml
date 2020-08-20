@@ -32,12 +32,13 @@ Item {
     property real   interiorOpacity:    1
     property int    borderWidth:        0
     property color  borderColor:        "black"
-
+    property var _missionItem: object
+    property var _circleRadius: _missionItem.circleRadius.rawValue
     property var    _polygonComponent
     property var    _dragHandlesComponent
     property var    _splitHandlesComponent
     property var    _centerDragHandleComponent
-    property real   _circleRadius:              50
+    //property real   _circleRadius:              50
     property bool   _editCircleRadius:          false
 
     property real _zorderDragHandle:    QGroundControl.zOrderMapItems + 3   // Highest to prevent splitting when items overlap
@@ -373,16 +374,16 @@ Item {
             delegate: Item {
                 property var _visuals: [ ]
 
-                Component.onCompleted: {
-                    var dragHandle = dragHandleComponent.createObject(mapControl)
-                    dragHandle.coordinate = Qt.binding(function() { return object.coordinate })
-                    dragHandle.polygonVertex = Qt.binding(function() { return index })
-                    mapControl.addMapItem(dragHandle)
-                    var dragArea = dragAreaComponent.createObject(mapControl, { "itemIndicator": dragHandle, "itemCoordinate": object.coordinate })
-                    dragArea.polygonVertex = Qt.binding(function() { return index })
-                    _visuals.push(dragHandle)
-                    _visuals.push(dragArea)
-                }
+//                Component.onCompleted: {
+//                    var dragHandle = dragHandleComponent.createObject(mapControl)
+//                    dragHandle.coordinate = Qt.binding(function() { return object.coordinate })
+//                    dragHandle.polygonVertex = Qt.binding(function() { return index })
+//                    mapControl.addMapItem(dragHandle)
+//                    var dragArea = dragAreaComponent.createObject(mapControl, { "itemIndicator": dragHandle, "itemCoordinate": object.coordinate })
+//                    dragArea.polygonVertex = Qt.binding(function() { return index })
+//                    _visuals.push(dragHandle)
+//                    _visuals.push(dragArea)
+//                }
 
                 Component.onDestruction: {
                     for (var i=0; i<_visuals.length; i++) {

@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -17,6 +17,7 @@
 #include "CameraSection.h"
 #include "SpeedSection.h"
 #include "QGroundControlQmlGlobal.h"
+#include<QVariantList>
 
 /// A SimpleMissionItem is used to represent a single MissionItem to the ui.
 class SimpleMissionItem : public VisualMissionItem
@@ -157,7 +158,6 @@ private:
     void _updateOptionalSections(void);
     void _rebuildNaNFacts       (void);
     void _rebuildComboBoxFacts  (void);
-
     MissionItem     _missionItem;
     bool            _rawEdit;
     bool            _dirty;

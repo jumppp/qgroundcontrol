@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -126,6 +126,7 @@ void QGCMapPolyline::setPath(const QList<QGeoCoordinate>& path)
     }
 
     setDirty(true);
+    qDebug()<<"QGCMapPolyline:"<<_polylinePath.count();
     emit pathChanged();
 }
 

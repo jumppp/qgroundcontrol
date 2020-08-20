@@ -29,7 +29,7 @@ Rectangle {
     property real   _fieldWidth:                ScreenTools.defaultFontPixelWidth * 10.5
     property var    _vehicle:                   QGroundControl.multiVehicleManager.activeVehicle ? QGroundControl.multiVehicleManager.activeVehicle : QGroundControl.multiVehicleManager.offlineEditingVehicle
     property real   _cameraMinTriggerInterval:  missionItem.cameraCalc.minTriggerInterval.rawValue
-
+    property var    _radiusEdit:                circleRadiusFact.fact.value
     function polygonCaptureStarted() {
         missionItem.clearPolygon()
     }
@@ -115,11 +115,21 @@ Rectangle {
 //                    visible:    missionItem.cameraCalc.isManualCamera
                 }
                 FactTextField {
-                    fact:               missionItem.layers
+                    //fact:               missionItem.layers
+                    fact:               missionItem.loiterTime
                     Layout.fillWidth:   true
 //                    visible:            missionItem.cameraCalc.isManualCamera
                 }
-
+                QGCLabel { text: qsTr("半径") }
+                FactTextField {
+                    fact:               missionItem.circleRadius
+                    Layout.fillWidth:   true
+                }
+                QGCLabel { text: qsTr("悬停时间") }
+                FactTextField {
+                    fact:               missionItem.loiterTime
+                    Layout.fillWidth:   true
+                }
                 QGCLabel { text: qsTr("高度") }
                 FactTextField {
                     fact:               missionItem.altitude

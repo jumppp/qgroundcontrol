@@ -25,6 +25,22 @@
     "defaultValue":     1
 },
 {
+    "name":             "CircleRadius",
+    "shortDescription": "CircleRadius.",
+    "type":             "double",
+    "units":            "m",
+    "decimalPlaces":    1,
+    "defaultValue":     50
+},
+{
+    "name":             "LoiterTime",
+    "shortDescription": "Loitertime.",
+    "type":             "uint32",
+    "units":            "s",
+    "decimalPlaces":    0,
+    "defaultValue":     0
+},
+{
     "name":             "StructureHeight",
     "shortDescription": "Height of structure being scanned.",
     "type":             "double",

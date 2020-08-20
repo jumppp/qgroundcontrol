@@ -39,6 +39,8 @@ public:
     Q_PROPERTY(Fact*            altitude                    READ altitude                                                   CONSTANT)
     Q_PROPERTY(Fact*            structureHeight             READ structureHeight                                            CONSTANT)
     Q_PROPERTY(Fact*            layers                      READ layers                                                     CONSTANT)
+    Q_PROPERTY(Fact*            loiterTime                  READ loiterTime                                                 CONSTANT)
+    Q_PROPERTY(Fact*            circleRadius                READ circleRadius                                               CONSTANT)
     Q_PROPERTY(Fact*            gimbalPitch                 READ gimbalPitch                                                CONSTANT)
     Q_PROPERTY(bool             altitudeRelative            READ altitudeRelative           WRITE setAltitudeRelative       NOTIFY altitudeRelativeChanged)
     Q_PROPERTY(int              cameraShots                 READ cameraShots                                                NOTIFY cameraShotsChanged)
@@ -50,6 +52,8 @@ public:
     Fact* altitude          (void) { return &_altitudeFact; }
     Fact* structureHeight   (void) { return &_structureHeightFact; }
     Fact* layers            (void) { return &_layersFact; }
+    Fact* loiterTime        (void) {return  &_loiterTimeFact;}
+    Fact* circleRadius      (void) {return  &_circleRadiusFact;}
     Fact* gimbalPitch       (void) { return &_gimbalPitchFact; }
 
     bool            altitudeRelative        (void) const { return _altitudeRelative; }
@@ -106,6 +110,8 @@ public:
     static const char* altitudeName;
     static const char* structureHeightName;
     static const char* layersName;
+    static const char* loiterTimeName;
+    static const char* circleRadiusName;
     static const char* gimbalPitchName;
 
 signals:
@@ -152,6 +158,8 @@ private:
     SettingsFact    _altitudeFact;
     SettingsFact    _structureHeightFact;
     SettingsFact    _layersFact;
+    SettingsFact    _loiterTimeFact;
+    SettingsFact    _circleRadiusFact;
     SettingsFact    _gimbalPitchFact;
 
     static const char* _jsonCameraCalcKey;

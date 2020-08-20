@@ -24,7 +24,6 @@ Item {
 
     property var map        ///< Map control to place item in
     property var qgcView    ///< QGCView to use for popping dialogs
-
     property var _missionItem:      object
     property var _structurePolygon: object.structurePolygon
     property var _flightPolygon:    object.flightPolygon
@@ -56,7 +55,7 @@ Item {
 
             var centerCoord = map.toCoordinate(Qt.point(rect.x + (rect.width / 2), rect.y + (rect.height / 2)),   false /* clipToViewPort */)
             var unboundCenter = centerCoord.atDistanceAndAzimuth(0, 0)
-            var _circleRadius = 50
+            var _circleRadius =_missionItem.circleRadius.value
             var segments = 8
             var angleIncrement = 360 / segments
             var angle = 0
@@ -83,10 +82,10 @@ Item {
         mapControl:         map
         mapPolygon:         _structurePolygon
         interactive:        _missionItem.isCurrentItem
-        borderWidth:        1
+        borderWidth:        0
         borderColor:        "black"
         interiorColor:      "green"
-        interiorOpacity:    0.25
+        interiorOpacity:    0
     }
 
     QGCMapPolygonCircleVisuals {

@@ -32,6 +32,8 @@ const char* CircleScanComplexItem::settingsGroup =               "CircleScan";
 const char* CircleScanComplexItem::altitudeName =                "Altitude";
 const char* CircleScanComplexItem::structureHeightName =         "StructureHeight";
 const char* CircleScanComplexItem::layersName =                  "Layers";
+const char* CircleScanComplexItem::loiterTimeName =              "LoiterTime";
+const char* CircleScanComplexItem::circleRadiusName =            "CircleRadius";
 const char* CircleScanComplexItem::gimbalPitchName =             "GimbalPitch";
 
 const char* CircleScanComplexItem::jsonComplexItemTypeValue =    "CircleScan";
@@ -52,6 +54,8 @@ CircleScanComplexItem::CircleScanComplexItem(Vehicle* vehicle, bool flyView, con
     , _altitudeFact             (settingsGroup, _metaDataMap[altitudeName])
     , _structureHeightFact      (settingsGroup, _metaDataMap[structureHeightName])
     , _layersFact               (settingsGroup, _metaDataMap[layersName])
+    , _loiterTimeFact           (settingsGroup, _metaDataMap[loiterTimeName])
+    , _circleRadiusFact         (settingsGroup, _metaDataMap[circleRadiusName])
     , _gimbalPitchFact          (settingsGroup, _metaDataMap[gimbalPitchName])
 {
     _editorQml = "qrc:/qml/CircleScanEditor.qml";
@@ -60,9 +64,12 @@ CircleScanComplexItem::CircleScanComplexItem(Vehicle* vehicle, bool flyView, con
 
     connect(&_altitudeFact,     &Fact::valueChanged, this, &CircleScanComplexItem::_setDirty);
     connect(&_layersFact,       &Fact::valueChanged, this, &CircleScanComplexItem::_setDirty);
+    connect(&_loiterTimeFact,   &Fact::valueChanged, this, &CircleScanComplexItem::_setDirty);
+    connect(&_circleRadiusFact, &Fact::valueChanged, this, &CircleScanComplexItem::_setDirty);
     connect(&_gimbalPitchFact,  &Fact::valueChanged, this, &CircleScanComplexItem::_setDirty);
 
     connect(&_layersFact,                           &Fact::valueChanged,    this, &CircleScanComplexItem::_recalcLayerInfo);
+    //connect(&_loiterTimeFact,                       &Fact::valueChanged,    this, &CircleScanComplexItem::_recalcLayerInfo);
     connect(&_structureHeightFact,                  &Fact::valueChanged,    this, &CircleScanComplexItem::_recalcLayerInfo);
     connect(_cameraCalc.adjustedFootprintFrontal(), &Fact::valueChanged,    this, &CircleScanComplexItem::_recalcLayerInfo);
 
@@ -77,7 +84,11 @@ CircleScanComplexItem::CircleScanComplexItem(Vehicle* vehicle, bool flyView, con
 
     connect(&_structurePolygon, &QGCMapPolygon::countChanged,   this, &CircleScanComplexItem::_updateLastSequenceNumber);
     connect(&_layersFact,       &Fact::valueChanged,            this, &CircleScanComplexItem::_rebuildFlightPolygon);
+    //connect(&_loiterTimeFact,   &Fact::valueChanged,            this, &CircleScanComplexItem::_rebuildFlightPolygon);
+    connect(&_circleRadiusFact,   &Fact::valueChanged,            this, &CircleScanComplexItem::_rebuildFlightPolygon);
+
     connect(&_layersFact,       &Fact::valueChanged,            this, &CircleScanComplexItem::_updateLastSequenceNumber);
+    //connect(&_loiterTimeFact,   &Fact::valueChanged,            this, &CircleScanComplexItem::_updateLastSequenceNumber);
 
     connect(&_flightPolygon,    &QGCMapPolygon::pathChanged,    this, &CircleScanComplexItem::_flightPathChanged);
 
@@ -86,6 +97,7 @@ CircleScanComplexItem::CircleScanComplexItem(Vehicle* vehicle, bool flyView, con
     connect(&_flightPolygon,                        &QGCMapPolygon::pathChanged,    this, &CircleScanComplexItem::_recalcCameraShots);
     connect(_cameraCalc.adjustedFootprintSide(),    &Fact::valueChanged,            this, &CircleScanComplexItem::_recalcCameraShots);
     connect(&_layersFact,                           &Fact::valueChanged,            this, &CircleScanComplexItem::_recalcCameraShots);
+    //connect(&_loiterTimeFact,                       &Fact::valueChanged,            this, &CircleScanComplexItem::_recalcCameraShots);
 
     connect(&_cameraCalc, &CameraCalc::isManualCameraChanged, this, &CircleScanComplexItem::_updateGimbalPitch);
 
@@ -164,6 +176,8 @@ void CircleScanComplexItem::save(QJsonArray&  missionItems)
     saveObject[structureHeightName] =       _structureHeightFact.rawValue().toDouble();
     saveObject[_jsonAltitudeRelativeKey] =  _altitudeRelative;
     saveObject[layersName] =                _layersFact.rawValue().toDouble();
+    saveObject[loiterTimeName] =            _loiterTimeFact.rawValue().toDouble();
+    saveObject[circleRadiusName] =          _circleRadiusFact.rawValue().toDouble();
     saveObject[gimbalPitchName] =           _gimbalPitchFact.rawValue().toDouble();
 
     QJsonObject cameraCalcObject;
@@ -195,6 +209,8 @@ bool CircleScanComplexItem::load(const QJsonObject& complexObject, int sequenceN
         { structureHeightName,                          QJsonValue::Double, true },
         { _jsonAltitudeRelativeKey,                     QJsonValue::Bool,   true },
         { layersName,                                   QJsonValue::Double, true },
+        { loiterTimeName,                               QJsonValue::Double, true },
+        { circleRadiusName,                             QJsonValue::Double, true },
         { gimbalPitchName,                              QJsonValue::Double, false },    // This value was added after initial implementation so may be missing from older files
         { _jsonCameraCalcKey,                           QJsonValue::Object, true },
     };
@@ -226,6 +242,8 @@ bool CircleScanComplexItem::load(const QJsonObject& complexObject, int sequenceN
 
     _altitudeFact.setRawValue       (complexObject[altitudeName].toDouble());
     _layersFact.setRawValue         (complexObject[layersName].toDouble());
+    _loiterTimeFact.setRawValue     (complexObject[loiterTimeName].toDouble());
+    _circleRadiusFact.setRawValue   (complexObject[circleRadiusName].toDouble());
     _structureHeightFact.setRawValue(complexObject[structureHeightName].toDouble());
 
     _altitudeRelative = complexObject[_jsonAltitudeRelativeKey].toBool(true);
@@ -269,6 +287,11 @@ void CircleScanComplexItem::_flightPathChanged(void)
     _setBoundingCube(QGCGeoBoundingCube(
         QGeoCoordinate(north - 90.0, west - 180.0, bottom),
         QGeoCoordinate(south - 90.0, east - 180.0, top)));
+//    for (int i=0; i<_flightPolygon.count(); i++) {
+//        qDebug()<<_flightPolygon.vertexCoordinate(i);
+////        qDebug()<<_flightPolygon.count();
+////        qDebug()<<_flightPolygon.path()[i].value<QGeoCoordinate>();
+//    }
 
     emit coordinateChanged(coordinate());
     emit exitCoordinateChanged(exitCoordinate());
@@ -306,14 +329,14 @@ void CircleScanComplexItem::appendMissionItems(QList<MissionItem*>& items, QObje
         // baseAltitude is the bottom of the first layer. Hence we need to move up half the distance of the camera footprint to center the camera
         // within the layer.
         double layerAltitude = baseAltitude;
-
+        double holdTime = _loiterTimeFact.rawValue().toDouble();
         for (int i=0; i<_flightPolygon.count(); i++) {
             QGeoCoordinate vertexCoord = _flightPolygon.vertexCoordinate(i);
 
             MissionItem* item = new MissionItem(seqNum++,
                                                 MAV_CMD_NAV_WAYPOINT,
                                                 _altitudeRelative ? MAV_FRAME_GLOBAL_RELATIVE_ALT : MAV_FRAME_GLOBAL,
-                                                0,                                          // No hold time
+                                                holdTime,                                          // No hold time
                                                 0.0,                                        // No acceptance radius specified
                                                 0.0,                                        // Pass through waypoint
                                                 std::numeric_limits<double>::quiet_NaN(),   // Yaw unchanged
@@ -441,25 +464,41 @@ void CircleScanComplexItem::rotateEntryPoint(void)
 
 void CircleScanComplexItem::_rebuildFlightPolygon(void)
 {
-//    _flightPolygon = _structurePolygon;
-    //_cameraCalc.distanceToSurface()->rawValue().toDouble()
+    int segments = 8;
+    double angleIncrement = 360/segments;
+    double radius = _circleRadiusFact.rawValue().toDouble();
+    int layers = _layersFact.rawValue().toInt();
+
     QGCMapPolygon tempPolygon = _structurePolygon;
     tempPolygon.offset(0);
+    QGeoCoordinate center = tempPolygon.vertexCoordinate(0);
     _flightPolygon = tempPolygon;
-//    qCWarning(CircleScanComplexItemLog) << "CircleScanComplexItem count " << tempPolygon.count();
-    if(tempPolygon.count() > 4) {
-        _radius = (tempPolygon.vertexCoordinate(0)).distanceTo(tempPolygon.vertexCoordinate(4)) / 2;
-    }
-    if(_layersFact.rawValue().toInt() > 1) {
-        _flightPolygon.appendVertex(tempPolygon.vertexCoordinate(0));
-        for(int layer=1; layer<_layersFact.rawValue().toInt(); layer++) {
-            tempPolygon.offset(_radius);
-            for(int i=0; i<tempPolygon.count(); i++) {
-                _flightPolygon.appendVertex(tempPolygon.vertexCoordinate(i));
-            }
-            _flightPolygon.appendVertex(tempPolygon.vertexCoordinate(0));
+
+
+    for(int layer = 0;layer<layers;layer++){
+
+        for(int i = 0;i<(segments+1);i++){
+            QGeoCoordinate newCoord = center.atDistanceAndAzimuth(radius * (layer + 1), angleIncrement*i);
+            _flightPolygon.appendVertex(newCoord);
         }
+            //_flightPolygon.appendVertex(tempPolygon.vertexCoordinate(0));
     }
+    for(int j = 0; j < (segments); j++) {
+        _flightPolygon.removeVertex(0);
+    }
+
+
+//    if(_layersFact.rawValue().toInt() > 1) {
+//        _flightPolygon.appendVertex(tempPolygon.vertexCoordinate(0));
+
+//        for(int layer=1; layer<_layersFact.rawValue().toInt(); layer++) {
+//            tempPolygon.offset(_radius);
+//            for(int i=0; i<tempPolygon.count(); i++) {
+//                _flightPolygon.appendVertex(tempPolygon.vertexCoordinate(i));
+//            }
+//            _flightPolygon.appendVertex(tempPolygon.vertexCoordinate(0));
+//        }
+//    }
 }
 
 void CircleScanComplexItem::_recalcCameraShots(void)

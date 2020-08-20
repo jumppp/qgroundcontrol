@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -162,7 +162,7 @@ QGCView {
                 //anchors.top:parent.bottom
                 Text {
                     id: aqiText
-                    text: qsTr("158")
+                    text: _activeVehicle?_activeVehicle.temperature.temperature1.value:"0"
                     font.family: "Comic Sans MS"
                     font.pixelSize:  45
                     color: aqiLevel.color
@@ -188,7 +188,7 @@ QGCView {
                 anchors.left: mainpolutionText.right
                 height:unitHeight
                 width:unitWidth*2.7
-                text: qsTr("PM2.5")
+                text: _activeVehicle?_activeVehicle.temperature.temperature1.value:"PM2.5"
                 font.family: "华文中宋"
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignHCenter
@@ -236,7 +236,7 @@ QGCView {
                 anchors.left: temperatureText.right
                 width:unitWidth*2.7
                 height: unitHeight*0.7
-                text: "25.85℃"
+                text: _activeVehicle?_activeVehicle.temperature.temperature1.value:"PM2.5"
                 font.pixelSize: 14
                 verticalAlignment: Text.AlignVCenter
             }
@@ -260,7 +260,7 @@ QGCView {
                 anchors.left: humidityText.right
                 width:unitWidth*2.7
                 height: unitHeight*0.7
-                text: qsTr("56%")
+                text: _activeVehicle?_activeVehicle.gasSensor.humidity.value:"0"
                 font.pixelSize: 14
                 verticalAlignment: Text.AlignVCenter
             }
@@ -283,7 +283,7 @@ QGCView {
                 anchors.left: gasPressureText.right
                 width:unitWidth*2.7
                 height: unitHeight*0.7
-                text: "1.01MPa"
+                text: _activeVehicle?_activeVehicle.gasSensor.gasPressure.value:"0"
                 font.pixelSize: 14
                 verticalAlignment: Text.AlignVCenter
             }
@@ -325,7 +325,7 @@ QGCView {
                 anchors.left: lonText.right
                 width:unitWidth*2.7
                 height: unitHeight*0.7
-                text: "120.358488"
+                text: _activeVehicle?_activeVehicle.gps.lat.value:"0"
                 font.pixelSize:14
                 verticalAlignment: Text.AlignVCenter
             }
@@ -349,7 +349,7 @@ QGCView {
                 anchors.left: latText.right
                 width:unitWidth*2.7
                 height: unitHeight*0.7
-                text: "30.353279"
+                text: _activeVehicle?_activeVehicle.gps.lon.value:"0"
                 font.pixelSize:14
                 verticalAlignment: Text.AlignVCenter
             }
@@ -372,7 +372,7 @@ QGCView {
                 anchors.left: altText.right
                 width:unitWidth*2.7
                 height: unitHeight*0.7
-                text: "1.36"
+                text: _activeVehicle?_activeVehicle.altitudeRelative.value:"0"
                 font.pixelSize: 14
                 verticalAlignment: Text.AlignVCenter
             }
@@ -503,7 +503,7 @@ QGCView {
                     height:unitHeight*0.9
                     anchors.left: pm10Rect.right
                     anchors.top:pm10Text.bottom
-                    text:"56"
+                    text:_activeVehicle?_activeVehicle.gasSensor.pm10.value:"0"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize: 30
@@ -561,7 +561,7 @@ QGCView {
                     height:unitHeight*0.9
                     anchors.left: o3Rect.right
                     anchors.top:o3Text.bottom
-                    text:"131"
+                    text:_activeVehicle?_activeVehicle.gasSensor.gasTemperature.o3:"0"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize:30
@@ -619,7 +619,7 @@ QGCView {
                     height:unitHeight*0.9
                     anchors.left: so2Rect.right
                     anchors.top:so2Text.bottom
-                    text:"131"
+                    text:_activeVehicle?_activeVehicle.gasSensor.so2.value:"0"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize:30
@@ -677,7 +677,7 @@ QGCView {
                     height:unitHeight*0.9
                     anchors.left: no2Rect.right
                     anchors.top:no2Text.bottom
-                    text:"275"
+                    text:_activeVehicle?_activeVehicle.gasSensor.no2.value:"0"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize:30
@@ -735,7 +735,7 @@ QGCView {
                     height:unitHeight*0.9
                     anchors.left: coRect.right
                     anchors.top:coText.bottom
-                    text:"5.36"
+                    text:_activeVehicle?_activeVehicle.gasSensor.co.value:"0"
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     font.pixelSize:30
