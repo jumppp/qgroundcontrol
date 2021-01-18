@@ -32,7 +32,7 @@
 #include "PlanMasterController.h"
 #include "KML.h"
 #include "QGCCorePlugin.h"
-
+#include <QVector>
 #ifndef __mobile__
 #include "MainWindow.h"
 #include "QGCQFileDialog.h"
@@ -552,6 +552,55 @@ void MissionController::removeMissionItem(int index)
 
     _recalcAll();
     setDirty(true);
+}
+
+void MissionController::pathOptMissionItem(void){
+
+    QList<VisualMissionItem*> itemlist;
+    qDebug()<<"start";
+    for (int i=0; i<_visualItems->count(); i++) {
+        VisualMissionItem* item = qobject_cast<VisualMissionItem*>(_visualItems->get(i));
+
+        itemlist.append(item);
+    }
+   qDebug()<<itemlist[1]->coordinate()<<itemlist[1]->sequenceNumber();
+
+   qDebug()<<itemlist[3]->coordinate()<<"before";
+
+   VisualMissionItem* item1 = itemlist[1];
+   VisualMissionItem* item3 = itemlist[3];
+   itemlist[3] = item1;
+   itemlist[1] = item3;
+   qDebug()<<itemlist[3]<<"after";
+   _visualItems->clear();
+
+   for (int i=0; i<itemlist.count(); i++) {
+       _visualItems->append(itemlist[i]);
+   }
+   _initAllVisualItems();
+   _GAPathOpt(itemlist);
+}
+
+QList<VisualMissionItem*> MissionController::_GAPathOpt(QList<VisualMissionItem*> itemlist){
+
+
+    int popSize = 20;
+    int numIter = 100;
+    int totalDist = 0;
+
+    int count = itemlist.count();
+    QVector<QVector<double>> xy(count,QVector<double>(count));
+    for(int i= 0;i<count;i++){
+        for(int j = 0;j<count;j++){
+            xy[i][j] = itemlist[i]->coordinate().distanceTo(itemlist[j]->coordinate());
+        }
+    }
+
+
+    qDebug()<<xy;
+
+    return itemlist;
+
 }
 
 void MissionController::removeAll(void)

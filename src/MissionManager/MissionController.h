@@ -101,12 +101,11 @@ public:
     Q_PROPERTY(QString              sectorScanComplexItemName       READ sectorScanComplexItemName      CONSTANT)
 
     Q_INVOKABLE void removeMissionItem(int index);
-
+    Q_INVOKABLE void pathOptMissionItem(void);
     /// Add a new simple mission item to the list
     ///     @param i: index to insert at
     /// @return Sequence number for new item
-    Q_INVOKABLE int insertSimpleMissionItem(QGeoCoordinate coordinate, int i);
-
+    Q_INVOKABLE int insertSimpleMissionItem(QGeoCoordinate coordinate, int i); 
     /// Add a new ROI mission item to the list
     ///     @param i: index to insert at
     /// @return Sequence number for new item
@@ -282,7 +281,7 @@ private:
     void _addTimeDistance(bool vtolInHover, double hoverTime, double cruiseTime, double extraTime, double distance, int seqNum);
     int _insertComplexMissionItemWorker(ComplexMissionItem* complexItem, int i);
     void _warnIfTerrainFrameUsed(void);
-
+    QList<VisualMissionItem*> _GAPathOpt(QList<VisualMissionItem*> itemlist);
 private:
     MissionManager*         _missionManager;
     int                     _missionItemCount;

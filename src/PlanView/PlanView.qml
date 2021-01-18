@@ -300,6 +300,11 @@ QGCView {
         _missionController.setCurrentPlanViewIndex(sequenceNumber, true)
     }
 
+    function pathOptMissionItem(){
+        _missionController.pathOptMissionItem()
+        _missionController.setCurrentPlanViewIndex(0, true)
+    }
+
     /// Inserts a new ROI mission item
     ///     @param coordinate Location to insert item
     ///     @param index Insert item at this index
@@ -656,6 +661,17 @@ QGCView {
                         editorMap.zoomLevel -= 0.5
                         break
                     }
+                }
+            }
+            QGCButton {
+                anchors.left:toolStrip.right
+                anchors.top: toolStrip.bottom
+                width: 50
+                height: 20
+                text:               "start"
+
+                onClicked: {
+                    pathOptMissionItem()
                 }
             }
         }

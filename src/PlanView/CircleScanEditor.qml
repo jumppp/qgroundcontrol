@@ -115,8 +115,7 @@ Rectangle {
 //                    visible:    missionItem.cameraCalc.isManualCamera
                 }
                 FactTextField {
-                    //fact:               missionItem.layers
-                    fact:               missionItem.loiterTime
+                    fact:               missionItem.layers
                     Layout.fillWidth:   true
 //                    visible:            missionItem.cameraCalc.isManualCamera
                 }

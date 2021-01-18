@@ -43,7 +43,7 @@ const char* SectorScanComplexItem::_jsonAltitudeRelativeKey =    "altitudeRelati
 
 SectorScanComplexItem::SectorScanComplexItem(Vehicle* vehicle, bool flyView, const QString& kmlOrShpFile, QObject* parent)
     : ComplexMissionItem        (vehicle, flyView, parent)
-    , _metaDataMap              (FactMetaData::createMapFromJsonFile(QStringLiteral(":1/src/MissionManager/SectorScan.SettingsGroup.json"), this /* QObject parent */))
+    , _metaDataMap              (FactMetaData::createMapFromJsonFile(QStringLiteral(":/src/MissionManager/SectorScan.SettingsGroup.json"), this /* QObject parent */))
     , _sequenceNumber           (0)
     , _dirty                    (false)
     , _altitudeRelative         (true)
