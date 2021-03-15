@@ -1,4 +1,4 @@
-import QtQuick          2.3
+﻿import QtQuick          2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts  1.2
 import QtCharts         2.2
@@ -32,11 +32,35 @@ QGCView{
 
         Grid{
             id:chargrid
-            columns:2
+            columns:1
             spacing: 5
 
 
+            ChartView{
+                id:                     altpm25linechart
+                width:                  800
+                height:                 600
+                visible:                true
+                ValueAxis{
+                    id:             alt
+                    min:            0
+                    max:            200
+                    tickCount:      5
+                }
+                ValueAxis{
+                    id:             pm25
+                    min:            0
+                    max:            120
+                    tickCount:      10
+                }
 
+                SplineSeries{
+                    id:             alt_pm25line
+                    axisX:          alt
+                    axisY:          pm25
+                    name:           "pm2.5垂向浓度变化"
+                }
+            }
             ChartView{
                 id:                     pm25chart
                 width:                  800
@@ -142,7 +166,7 @@ QGCView{
 
 
         //getXYValue(databaseTime,databasePm25,pm25line,pm25_x_axis)
-        getXYValue(databaseTime,databaseHumidity,pm10line,pm10_x_axis)
+        getValue(databaseAltitude,databasePm25,alt_pm25line)
         getXYValue(databaseTime,databaseHumidity,so2line,so2_x_axis)
     }
 

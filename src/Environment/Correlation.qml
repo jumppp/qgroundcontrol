@@ -1,4 +1,4 @@
-import QtQuick          2.3
+﻿import QtQuick          2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts  1.2
 import QtCharts         2.2
@@ -32,7 +32,7 @@ QGCView{
 
         Grid{
             id:chargrid
-            columns:2
+            columns:1
             spacing:0
 
 
@@ -44,14 +44,14 @@ QGCView{
                 visible:                true
                 ValueAxis{
                     id:             pm25_pm10x_axis
-                    min:            0
-                    max:            200
+                    min:            60
+                    max:            120
                     tickCount:      10
                 }
                 ValueAxis{
                     id:             pm25_pm10_y_axis
-                    min:            0
-                    max:            200
+                    min:            60
+                    max:            150
                     tickCount:      10
                 }
 
@@ -62,6 +62,7 @@ QGCView{
                     name:           "pm2.5/pm10(ug/cm3)"
                 }
             }
+
             ChartView{
                 id:                     pm25_tempchart
                 width:                  800
@@ -98,7 +99,7 @@ QGCView{
 
 
 
-        getXYValue(databasePm25,databasePm10,pm25_pm10line,pm25_pm10x_axis)
+        getValue(databasePm25,databasePm10,pm25_pm10line)
         getXYValue(databasePm25,databaseTempreture,pm25_templine,pm25_temp_x_axis)
 
     }

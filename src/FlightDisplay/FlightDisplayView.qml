@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -838,6 +838,15 @@ QGCView {
                             sideWindShow ? sideWin.x = root.width - sideWin.width-10 : sideWin.x = root.width
                             sideWindShow ? parent.source = "/qmlimages/arrowright.png" : parent.source = "/qmlimages/arrowleft.png"
                             sideWindShow ? drawer.showWinShow():drawer.showNothing()
+                            console.log("Mavlink_166_pm25:35")
+                            console.log("Mavlink_166_pm25:35")
+                            console.log("Mavlink_166_pm25:35")
+                            console.log("Mavlink_166_pm25:35")
+                            console.log("Mavlink_166_pm25:36")
+                            console.log("Mavlink_166_pm25:36")
+                            console.log("Mavlink_166_pm25:36")
+                            console.log("Mavlink_166_pm25:35")
+
 
                         }
                     }

@@ -1,4 +1,4 @@
-
+﻿
 import QtQuick          2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts  1.2
@@ -17,7 +17,7 @@ Rectangle {
     id:     reportview
     color:  qgcPal.window
     z:      QGroundControl.zOrderTopMost
-
+    property var _activeVehicle: QGroundControl.multiVehicleManager.activeVehicle
     QGCPalette { id: qgcPal; colorGroupEnabled: true }
 
     ExclusiveGroup { id: setupButtonGroup }
@@ -163,22 +163,29 @@ Rectangle {
                 }
             }
             QGCButton {
+                id:startbutton
 
                 text:       qsTr("Start Store")
                 width:      _butttonWidth
-
+                enabled:    _activeVehicle
                 onClicked: {
                     mydatabase.connect_Database()
+                    startbutton.enabled=false
+                    stopbutton.enabled=true
                 }
             }
 
             QGCButton {
+                id:stopbutton
 
                 text:       qsTr("STOP")
                 width:      _butttonWidth
+                enabled:false
 
                 onClicked: {
                     mydatabase.disconnect_Database()
+                    startbutton.enabled =true
+                    stopbutton.enabled = false
                 }
             }
         } // Column - Buttons

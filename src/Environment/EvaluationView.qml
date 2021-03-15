@@ -1,4 +1,4 @@
-
+﻿
 import QtQuick          2.3
 import QtQuick.Controls 1.2
 import QtQuick.Layouts  1.2
@@ -43,61 +43,43 @@ Rectangle{
     property var identification: 0
     property var xxx: []
     property var yyy:[]
+    Item{
+        id: panelitem
+        anchors.left: parent.left
+        anchors.top: parent.top
+
+        width: 10
+        height:  parent.height
+
+    }
+
     Item {
-        id: toprowitem
+        id: panelrow
+        anchors.left: panelitem.right
+        anchors.top: parent.top
+        anchors.topMargin: 10
         width: parent.width
-        height:  parent.height/10
-        Row{
-            id:toprow
-            spacing:            _margin
-            anchors.verticalCenter: parent.verticalCenter
-            //anchors.horizontalCenter: parent.horizontalCenter
-            QGCLabel{
-                text:"当前选择是:"
-            }
-            QGCTextField {
-                readOnly:           true
-                Layout.fillWidth:   true
-                text:               identification
+        height:  parent.height/15
+        Column {
+            id:             headingColumn
+            width:          parent.width
+            spacing:        _margin
 
+            QGCLabel {
+                id:             pageNameLabel
+                font.pointSize: ScreenTools.largeFontPointSize
+                text:"分析评价"
             }
 
-            QGCButton {
-                text:       qsTr("Choose")
-                width:      _butttonWidth
-                onClicked:{
-                    mymodel.setDatabase("test")
-                    mymodel.setQuery("select * from happytest7 group by identification order by identification desc")
-                    tableview.model=mymodel;
-                    choseDialog.open()
-                }
+            QGCLabel {
+                id:             pageDescriptionLabel
+                anchors.left:   parent.left
+                anchors.right:  parent.right
+                wrapMode:       Text.WordWrap
+                text: "分析评价功能，可以进一步分析大气监测的情况"
 
             }
-            QGCButton {
-                text:       qsTr("Analyze")
-                width:      _butttonWidth
-                enabled:    identification!=0
-                onClicked: {
-                    mymodel.eraseAll()
-                    mymodel.setDatabase("test")
-                    mymodel.setQuery(String("select * from happytest7 where identification = %1").arg(identification))
-                    chartload.source="GeneralAnalyze.qml"
-
-                    //getXYValue(databaseTime,databasePm25,pm25line,pm25_x_axis)
-
-
-                }
-            }
-
-            QGCButton {
-
-                text:       qsTr("All Data")
-                width:      _butttonWidth
-
-            }
-
         }
-
     }
 
 
@@ -138,10 +120,11 @@ Rectangle{
 
     Row {
         id:         buttonRow
-        anchors.top:    toprowitem.bottom
-        anchors.left: parent.left
+        anchors.top:    panelrow.bottom
+        anchors.left: panelitem.right
+        width: parent.width
         spacing:    _defaultTextHeight / 2
-        height:  30
+        height:  40
 
         Repeater {
 
@@ -155,7 +138,7 @@ Rectangle{
                 }
                 ListElement {
                     buttonImage:        "/qmlimages/GeoTagIcon"
-                    buttonText:         qsTr("相关性分析")
+                    buttonText:         qsTr("相关性")
                     pageSource:         "Correlation.qml"
                 }
                 ListElement {
@@ -180,21 +163,82 @@ Rectangle{
                     }
                     else
                         {
+
                            chartload.source = pageSource
                     }
                 }
 
             }
         }
-    }
+        QGCLabel{
+            text:"当前选择是:"
+            Layout.alignment:   Qt.AlignTop | Qt.AlignLeft
+        }
+        QGCTextField {
+            readOnly:           true
+            Layout.fillWidth:   true
+            text:               identification
 
+        }
+    }
+    Column {
+        id:        buttoncolumn
+        spacing:     _margin
+        width: _butttonWidth
+        anchors.topMargin: 20
+        anchors.right:parent.right
+        anchors.rightMargin: 10
+        Layout.alignment:   Qt.AlignTop | Qt.AlignLeft
+
+        QGCButton {
+
+            text:       qsTr("Choose")
+            width:      _butttonWidth
+            onClicked:{
+                mymodel.setDatabase("test")
+                mymodel.setQuery("select * from happytest7 group by identification order by identification desc")
+                tableview.model=mymodel;
+                choseDialog.open()
+            }
+
+        }
+
+
+        QGCButton {
+
+            text:       qsTr("Analyze")
+            width:      _butttonWidth
+            enabled:    identification!=0
+            onClicked: {
+                mymodel.eraseAll()
+                mymodel.setDatabase("test")
+                mymodel.setQuery(String("select * from happytest7 where identification = %1").arg(identification))
+
+                chartload.source="GeneralAnalyze.qml"
+
+
+                //getXYValue(databaseTime,databasePm25,pm25line,pm25_x_axis)
+
+
+            }
+
+        }
+
+        QGCButton {
+
+            text:       qsTr("Refresh")
+            width:      _butttonWidth
+
+        }
+    } // Column - Buttons
 
     Loader{
         id:chartload
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom:parent.bottom
+        width: parent.width-buttoncolumn.width-25
+        anchors.left: panelitem.right
         anchors.top:buttonRow.bottom
+        anchors.bottom:parent.bottom
+
         source: "ChartTab.qml"
     }
 
@@ -222,6 +266,33 @@ Rectangle{
         console.log("a:",x,"aa",y)
         xname.min=xxx[0]
         xname.max=xxx[o-1]
+        linename.clear()
+        for(var t=0;t<o;t++){
+            linename.append(xxx[t],yyy[t])
+        }
+
+    }
+    function getValue(xvalue,yvalue,linename)
+    {
+        //获取record数目
+        var o=mymodel.getLastQuery(identification);
+        console.log("o is---- ",o)
+        //xy轴
+        xxx=[]
+        yyy=[]
+
+        for(var s=0;s<o;s++){
+            var xx = mymodel.getIndex(s,xvalue)
+            xxx.push(xx)
+        }
+
+        for(var i=0;i<o;i++){
+            var yy = mymodel.getIndex(i,yvalue)
+            yyy.push(yy)
+        }
+
+
+        console.log("a:",x,"aa",y)
         linename.clear()
         for(var t=0;t<o;t++){
             linename.append(xxx[t],yyy[t])

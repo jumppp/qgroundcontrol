@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  *   (c) 2009-2016 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -52,7 +52,6 @@ Rectangle {
         anchors.left:       parent.left
         anchors.right:      parent.right
         spacing:            _spacing
-
         Item {
             width:  parent.width
             height: outerCompass.height
