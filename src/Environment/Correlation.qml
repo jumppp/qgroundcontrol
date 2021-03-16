@@ -28,6 +28,7 @@ QGCView{
     ScrollView{
         id:charscroll
         anchors.fill:parent
+        clip: true
 
 
         Grid{
@@ -44,14 +45,14 @@ QGCView{
                 visible:                true
                 ValueAxis{
                     id:             pm25_pm10x_axis
-                    min:            60
-                    max:            120
+                    min:            30
+                    max:            50
                     tickCount:      10
                 }
                 ValueAxis{
                     id:             pm25_pm10_y_axis
-                    min:            60
-                    max:            150
+                    min:            35
+                    max:            70
                     tickCount:      10
                 }
 

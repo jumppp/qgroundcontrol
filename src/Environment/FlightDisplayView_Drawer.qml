@@ -893,7 +893,7 @@ function aQi_cal(){
                     anchors.top:so2Text.bottom
                     width: unitWidth*0.3
                     height:unitHeight*1.2
-                    color: _activeVehicle?iAQI_so2_cal(activeVehicle.gasSensor.so2.value)[1]:"white"
+                    color: _activeVehicle?iAQI_so2_cal(activeVehicle.gasSensor.so2.value/10)[1]:"white"
                 }
 
                 Text {
@@ -1009,7 +1009,7 @@ function aQi_cal(){
                     anchors.top:coText.bottom
                     width: unitWidth*0.3
                     height:unitHeight*1.2
-                    color: _activeVehicle?iAQI_no2_cal(activeVehicle.gasSensor.no2.value)[1]:"white"
+                    color: _activeVehicle?iAQI_co_cal(activeVehicle.gasSensor.co.value/100)[1]:"white"
                 }
 
                 Text {
