@@ -1,4 +1,4 @@
-#include "sqlquerymodel.h"
+﻿#include "sqlquerymodel.h"
 #include <QSqlField>
 #include <QSqlRecord>
 #include <QSqlField>
@@ -137,10 +137,25 @@ int SqlQueryModel::getLastQuery(QString str){
 
 }
 
-void SqlQueryModel::test()
+QVariant SqlQueryModel::getMin(QString str,QString gas)
 {
-
-
-
-    qDebug()<<"111";
+    QVariant minValue=0;
+    QSqlQuery query(_db);
+    QString queryMinValue= QString ("select min(%1) from happytest7  where identification = %2").arg(gas).arg(str);
+    query.exec(queryMinValue);
+    while (query.next()){
+        minValue=query.value(0);
+    }
+    return minValue;
+}
+QVariant SqlQueryModel::getMax(QString str,QString gas)
+{
+    QVariant maxValue=0;
+    QSqlQuery query(_db);
+    QString queryMaxValue= QString ("select max( %1 ) from happytest7  where identification = %2").arg(gas).arg(str);
+    query.exec(queryMaxValue);
+    while (query.next()){
+        maxValue=query.value(0);
+    }
+    return maxValue;
 }

@@ -1,4 +1,4 @@
-#ifndef SQLQUERYMODEL_H
+﻿#ifndef SQLQUERYMODEL_H
 #define SQLQUERYMODEL_H
 
 #include <QObject>
@@ -18,7 +18,8 @@ public:
     Q_INVOKABLE QList<QVariant> getData(const int &index);
     Q_INVOKABLE QVariant getIndex(const int &row,int role);//用于row role
     Q_INVOKABLE int getLastQuery(QString str); //用于获取一个model中identification的行数
-    Q_INVOKABLE void test();
+    Q_INVOKABLE QVariant getMax(QString str,QString gas);
+    Q_INVOKABLE QVariant getMin(QString str,QString gas);
 
 //    void setQuery(const QString &query, const QSqlDatabase &db = QSqlDatabase());
 //    void setQuery(const QSqlQuery &query);

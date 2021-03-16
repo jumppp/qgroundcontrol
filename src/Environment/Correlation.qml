@@ -100,7 +100,7 @@ QGCView{
 
 
 
-        getValue(databasePm25,databasePm10,pm25_pm10line)
+        getValue(databasePm25,databasePm10,pm25_pm10line,pm25_pm10x_axis,pm25_pm10_y_axis,pm25name,pm10name)
         getXYValue(databasePm25,databaseTempreture,pm25_templine,pm25_temp_x_axis)
 
     }

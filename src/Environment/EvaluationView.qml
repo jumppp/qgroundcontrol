@@ -37,6 +37,8 @@ Rectangle{
     property real databaseCO:               14
     property real databaseO3:               15
 
+    property string pm25name:               "pm2_5"
+    property string pm10name:               "pm10"
 
     readonly property real  _defaultTextHeight:     ScreenTools.defaultFontPixelHeight
     property var currentRow:    -1
@@ -272,33 +274,37 @@ Rectangle{
         }
 
     }
-    function getValue(xvalue,yvalue,linename)
-    {
-        //获取record数目
-        var o=mymodel.getLastQuery(identification);
-        console.log("o is---- ",o)
-        //xy轴
-        xxx=[]
-        yyy=[]
+    function getValue(xvalue,yvalue,linename,x_axis,y_axis,x_name,y_name)
+        {
 
-        for(var s=0;s<o;s++){
-            var xx = mymodel.getIndex(s,xvalue)
-            xxx.push(xx)
+            var o=mymodel.getLastQuery(identification);
+            console.log("o is---- ",o)
+            //xy轴
+            xxx=[]
+            yyy=[]
+
+            for(var s=0;s<o;s++){
+                var xx = mymodel.getIndex(s,xvalue)
+                xxx.push(xx)
+            }
+
+            for(var i=0;i<o;i++){
+                var yy = mymodel.getIndex(i,yvalue)
+                yyy.push(yy)
+            }
+
+            x_axis.min=mymodel.getMin(identification,x_name)*0.95
+            x_axis.max=mymodel.getMax(identification,x_name)*1.05
+            y_axis.min=mymodel.getMin(identification,y_name)*0.95
+            y_axis.max=mymodel.getMax(identification,y_name)*1.05
+
+            console.log("a:",x,"aa",y)
+            linename.clear()
+            for(var t=0;t<o;t++){
+                linename.append(xxx[t],yyy[t])
+            }
+
         }
-
-        for(var i=0;i<o;i++){
-            var yy = mymodel.getIndex(i,yvalue)
-            yyy.push(yy)
-        }
-
-
-        console.log("a:",x,"aa",y)
-        linename.clear()
-        for(var t=0;t<o;t++){
-            linename.append(xxx[t],yyy[t])
-        }
-
-    }
 
 }
 
